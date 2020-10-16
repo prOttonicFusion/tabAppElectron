@@ -1,8 +1,4 @@
-// dao.js
-
 import { Database } from "sqlite3";
-// import Promise
-// const Promise = require('bluebird')
 
 class DataBaseAccess {
   dbFilePath: string;
@@ -18,6 +14,19 @@ class DataBaseAccess {
     });
   }
 
+  run(sqlQuery: string, params = []): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.db.run(sqlQuery, params, function (err) {
+        if (err) {
+          console.log("Error running SQL query " + sqlQuery);
+          console.log(err);
+          reject(err);
+        } else {
+          resolve(true);
+        }
+      });
+    });
+  }
 }
 
-module.exports = DataBaseAccess;
+export default DataBaseAccess;
