@@ -17,7 +17,10 @@
   <body>
     <div class="main-container">
       <div id="window-left">
-        <div class="user-selector-container">Användare:</div>
+        <div class="user-selector-container">
+          <label for="user-selector">Användare:</label>
+          <input type="text" id="user-selector" name="user-selector" />
+        </div>
         <div class="balance-container">Balance:</div>
         <div class="logo-container">[Logo]</div>
         <div class="add-user-container">
@@ -27,8 +30,14 @@
         </div>
       </div>
       <div id="window-right">
-        <div class="buy-container">Köp:</div>
-        <div class="recharge-container">Ladda:</div>
+        <div class="buy-container">
+          <label for="price-input">Köp:</label>
+          <input type="text" id="price-input" name="price-input" />
+        </div>
+        <div class="recharge-container">
+          <label for="recharge-input">Ladda:</label>
+          <input type="text" id="recharge-input" name="recharge-input" />
+        </div>
         <div class="accept-container">
           <button id="accept-button" type="button" onclick="">Godkänn</button>
         </div>
