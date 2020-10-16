@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
+    <title>TabApp</title>
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
@@ -12,12 +12,29 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>, Chromium
-    <span id="chrome-version"></span>, and Electron
-    <span id="electron-version"></span>.
+    <div class="main-container">
+      <div id="window-left">
+        <div class="user-selector-container">Användare:</div>
+        <div class="balance-container">Balance:</div>
+        <div class="logo-container">[Logo]</div>
+        <div class="add-user-container">
+          <button id="accept-button" type="button" onclick="">
+            Lägg till användare
+          </button>
+        </div>
+      </div>
+      <div id="window-right">
+        <div class="buy-container">Köp:</div>
+        <div class="recharge-container">Ladda:</div>
+        <div class="accept-container">
+          <button id="accept-button" type="button" onclick="">Godkänn</button>
+        </div>
+        <div class="log-container">[Logg]</div>
+      </div>
+    </div>
 
     <!-- You can also require other files to run in this process -->
     <script src="./dist/renderer.js"></script>
