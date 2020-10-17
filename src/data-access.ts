@@ -5,7 +5,7 @@ class DataBaseAccess {
   db: Database;
 
   constructor(dbFilePath: string) {
-    this.db = new Database(dbFilePath, OPEN_CREATE, (err) => {
+    this.db = new Database(dbFilePath, (err) => {
       if (err) {
         console.log("Could not connect to database", err);
       } else {
@@ -14,7 +14,7 @@ class DataBaseAccess {
     });
   }
 
-  run(sqlQuery: string, params = []): Promise<boolean> {
+  run(sqlQuery: string, params: any[] = []): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.db.run(sqlQuery, params, function (err) {
         if (err) {
