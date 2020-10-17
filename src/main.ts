@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 import DataBaseAccess from "./data-access";
 import TabDB from "./tab-database";
@@ -9,6 +9,7 @@ function createWindow() {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true,
     },
     width: 800,
   });
@@ -42,10 +43,18 @@ app.on("window-all-closed", () => {
   }
 });
 
-// In this file you can include the rest of your app"s specific main process
-// code. You can also put them in separate files and require them here.
+// Connect to database
 const dataAccess = new DataBaseAccess(
   `${app.getPath("userData")}/database.sqlite3`
 );
 const tabDB = new TabDB(dataAccess);
 tabDB.init();
+
+// Add event managers
+ipcMain.on("add-user", () => {
+  console.log("Pressed: add user");
+});
+
+ipcMain.on("accept-transaction", () => {
+  console.log("Pressed: accept");
+});
