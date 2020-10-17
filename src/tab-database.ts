@@ -32,6 +32,10 @@ class TabDB {
     );
   }
 
+  getUser(name: string): Promise<any> {
+    return this.dataAccess.get(`SELECT * FROM tab WHERE name=?`, [name]);
+  }
+
   updateUser(name: string, newBalance: number): Promise<boolean> {
     return this.dataAccess.run(`UPDATE tab SET balance=? WHERE name=?`, [
       newBalance,
