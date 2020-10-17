@@ -1,11 +1,11 @@
-import { Database } from "sqlite3";
+import { Database, OPEN_CREATE } from "sqlite3";
 
 class DataBaseAccess {
   dbFilePath: string;
   db: Database;
 
   constructor(dbFilePath: string) {
-    this.db = new Database(dbFilePath, (err) => {
+    this.db = new Database(dbFilePath, OPEN_CREATE, (err) => {
       if (err) {
         console.log("Could not connect to database", err);
       } else {
