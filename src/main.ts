@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 import DataBaseAccess from "./data-access";
 import TabDB from "./tab-database";
+import TabService from "./tab-service";
 
 function createWindow() {
   // Create the browser window.
@@ -49,6 +50,7 @@ const dataAccess = new DataBaseAccess(
 );
 const tabDB = new TabDB(dataAccess);
 tabDB.init();
+const tabService = new TabService(tabDB);
 
 // Add event managers
 ipcMain.on("add-user", () => {
@@ -58,4 +60,5 @@ ipcMain.on("add-user", () => {
 ipcMain.on("accept-transaction", (event, args) => {
   console.log("Pressed: accept", args);
   const { user, transaction } = args[0];
+  tabService.addTransaction(user, transaction);
 });
