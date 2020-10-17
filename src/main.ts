@@ -55,6 +55,7 @@ ipcMain.on("add-user", () => {
   console.log("Pressed: add user");
 });
 
-ipcMain.on("accept-transaction", () => {
-  console.log("Pressed: accept");
+ipcMain.on("accept-transaction", (event, args) => {
+  console.log("Pressed: accept", args);
+  const { user, transaction } = args[0];
 });

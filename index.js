@@ -7,7 +7,7 @@ document.getElementById("add-user-button").addEventListener("click", () => {
 document.getElementById("accept-button").addEventListener("click", () => {
   let transaction = getTransactionValue();
   if (transaction) {
-    ipcRenderer.send("accept-transaction", [transaction]);
+    ipcRenderer.send("accept-transaction", [{ user: "test", transaction }]);
   }
   resetInputFields();
 });
