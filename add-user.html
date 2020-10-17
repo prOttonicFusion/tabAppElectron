@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lägg till användare</title>
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div id="user-adder-container">
+        <div class="user-name-container">
+          <label for="name-input">Namn:</label>
+          <input type="text" id="name-input" name="name-input" />
+        </div>
+        <div class="initial-balance-container">
+          <label for="initial-balance-input">Ladda:</label>
+          <input type="text" id="initial-balance-input" name="initial-balance-input" />
+        </div>
+        <div class="accept-user-container">
+          <button id="accept-user-button" type="button">Godkänn</button>
+          <button id="cancel-user-button" type="button">Avbryt</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- You can also require other files to run in this process -->
+    <script src="./add-user.js"></script>
+  </body>
+</html>

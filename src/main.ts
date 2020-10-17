@@ -4,9 +4,11 @@ import DataBaseAccess from "./data-access";
 import TabDB from "./tab-database";
 import TabService from "./tab-service";
 
+let mainWindow: BrowserWindow;
+
 function createWindow() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
@@ -53,8 +55,42 @@ tabDB.init();
 const tabService = new TabService(tabDB);
 
 // Add event managers
+let addUserWindow: BrowserWindow;
+
 ipcMain.on("add-user", () => {
   console.log("Pressed: add user");
+
+  if (!addUserWindow) {
+    addUserWindow = new BrowserWindow({
+      width: 400,
+      height: 400,
+      // close with the main window
+      parent: mainWindow,
+      webPreferences: {
+        nodeIntegration: true,
+      },
+    });
+
+    addUserWindow.loadFile(path.join(__dirname, "../add-user.html"));
+
+    // cleanup
+    addUserWindow.on("closed", () => {
+      addUserWindow = null;
+    });
+  }
+});
+
+ipcMain.on("cancel-add-user", () => {
+  console.log("cancel");
+  addUserWindow.close();
+  addUserWindow = null;
+});
+
+ipcMain.on("accept-add-user", (event, args) => {
+  const { user, initialBalance } = args[0];
+  tabService.addUser(user, initialBalance).then(() => {
+    addUserWindow.close();
+  });
 });
 
 ipcMain.on("accept-transaction", (event, args) => {

@@ -8,6 +8,10 @@ class TabService {
     this.tabDB = tabDB;
   }
 
+  addUser(user: string, initialBalance: number): Promise<boolean> {
+    return this.tabDB.addUser(user, initialBalance);
+  }
+
   async addTransaction(user: string, transaction: number): Promise<boolean> {
     const userBalance = await this.tabDB.getBalanceOfUser(user);
     const newBalance = userBalance + transaction;
