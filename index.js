@@ -3,17 +3,18 @@ const { ipcRenderer } = require("electron");
 // Request main.ts to init balance display and user selector
 ipcRenderer.send("request-init-data");
 
+console.log(document.getElementById("user-selector").selected);
 // If a changed balance is sent from main.ts
 ipcRenderer.on("set-balance", (event, args) => {
-    const balance = args;
-    console.log(balance);
-    document.getElementById("balance-display").innerHTML = balance;
-  });
-  
-  // Generate user selector dropdown
-  ipcRenderer.on("populate-user-selector", (event, userList) => {
-    populateUserDropdown(userList);
-  });
+  const balance = args;
+  console.log(balance);
+  document.getElementById("balance-display").innerHTML = balance;
+});
+
+// Generate user selector dropdown
+ipcRenderer.on("populate-user-selector", (event, userList) => {
+  populateUserDropdown(userList);
+});
 
 // Handle clicks on add-user button
 document.getElementById("add-user-button").addEventListener("click", () => {
@@ -23,8 +24,9 @@ document.getElementById("add-user-button").addEventListener("click", () => {
 // Handle clicks on button for accepting transactions
 document.getElementById("accept-button").addEventListener("click", () => {
   let transaction = getTransactionValue();
+  const user = getSelectedUser();
   if (transaction) {
-    ipcRenderer.send("accept-transaction", [{ user: "Otto", transaction }]);
+    ipcRenderer.send("accept-transaction", [{ user, transaction }]);
   }
   resetInputFields();
 });
@@ -48,6 +50,11 @@ function getTransactionValue() {
     value += deposit;
   }
   return value;
+}
+
+function getSelectedUser() {
+  const selector = document.getElementById("user-selector");
+  return selector.options[selector.selectedIndex].text;
 }
 
 function resetInputFields() {
