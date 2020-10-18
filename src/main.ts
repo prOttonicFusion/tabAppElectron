@@ -90,6 +90,7 @@ ipcMain.on("accept-add-user", (event, args) => {
   const { user, initialBalance } = args[0];
   tabService.addUser(user, initialBalance).then(() => {
     addUserWindow.close();
+    setUserSelectorContents();
   });
 });
 
