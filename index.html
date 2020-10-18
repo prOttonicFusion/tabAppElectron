@@ -21,7 +21,9 @@
           <label for="user-selector">Användare:</label>
           <input type="text" id="user-selector" name="user-selector" />
         </div>
-        <div class="balance-container">Balance:</div>
+        <div class="balance-container">
+          Balance: <span id="balance-display"></span> €
+        </div>
         <div class="logo-container">[Logo]</div>
         <div class="add-user-container">
           <button id="add-user-button" type="button">
@@ -32,11 +34,11 @@
       <div id="window-right">
         <div class="buy-container">
           <label for="price-input">Köp:</label>
-          <input type="text" id="price-input" name="price-input" />
+          <input type="text" id="price-input" name="price-input" /> €
         </div>
         <div class="recharge-container">
           <label for="recharge-input">Ladda:</label>
-          <input type="text" id="recharge-input" name="recharge-input" />
+          <input type="text" id="recharge-input" name="recharge-input" /> €
         </div>
         <div class="accept-container">
           <button id="accept-button" type="button">Godkänn</button>

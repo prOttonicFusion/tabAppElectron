@@ -97,4 +97,15 @@ ipcMain.on("accept-transaction", (event, args) => {
   console.log("Pressed: accept", args);
   const { user, transaction } = args[0];
   tabService.addTransaction(user, transaction);
+  setBalanceDisplay(user);
 });
+
+ipcMain.on("request-balance", (event, username) => {
+  setBalanceDisplay(username);
+});
+
+const setBalanceDisplay = (username: string): void => {
+  tabDB.getBalanceOfUser(username).then((balance) => {
+    mainWindow.webContents.send("set-balance", balance);
+  });
+};

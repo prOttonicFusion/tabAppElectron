@@ -7,9 +7,15 @@ document.getElementById("add-user-button").addEventListener("click", () => {
 document.getElementById("accept-button").addEventListener("click", () => {
   let transaction = getTransactionValue();
   if (transaction) {
-    ipcRenderer.send("accept-transaction", [{ user: "test", transaction }]);
+    ipcRenderer.send("accept-transaction", [{ user: "Otto", transaction }]);
   }
   resetInputFields();
+});
+
+ipcRenderer.on("set-balance", (event, args) => {
+  const balance = args;
+  console.log(balance);
+  document.getElementById("balance-display").innerHTML = balance;
 });
 
 function getTransactionValue() {
@@ -28,4 +34,9 @@ function getTransactionValue() {
 function resetInputFields() {
   document.getElementById("recharge-input").value = "";
   document.getElementById("price-input").value = "";
+}
+
+function requestUserBalance() {
+  const name = "Otto";
+  ipcRenderer.send("request-balance", name);
 }
