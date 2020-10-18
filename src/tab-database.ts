@@ -58,7 +58,9 @@ class TabDB {
     return new Promise((resolve) =>
       this.dataAccess
         .getAll(`SELECT name FROM tab`)
-        .then((rows) => resolve(rows.map((r: { name: string }) => r.name)))
+        .then((rows) =>
+          resolve(rows.map((r: { name: string }) => r.name).sort())
+        )
     );
   }
 
