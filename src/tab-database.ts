@@ -59,7 +59,19 @@ class TabDB {
   }
 
   getBalanceOfUser(user: string): Promise<number> {
-    return this.dataAccess.get(`SELECT balance FROM tab WHERE name=?`, [user]);
+    return new Promise((resolve, reject) =>
+      this.dataAccess
+        .get(`SELECT balance FROM tab WHERE name=?`, [user])
+        .then((row) => {
+          if (row) {
+            resolve(row.balance);
+          } else {
+            const err = "Could not get user balance";
+            console.log(err);
+            reject(err);
+          }
+        })
+    );
   }
 }
 
