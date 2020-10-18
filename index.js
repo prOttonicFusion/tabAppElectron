@@ -1,9 +1,11 @@
 const { ipcRenderer } = require("electron");
 
+// Handle clicks on add-user button
 document.getElementById("add-user-button").addEventListener("click", () => {
   ipcRenderer.send("add-user");
 });
 
+// Handle clicks on button for accepting transactions
 document.getElementById("accept-button").addEventListener("click", () => {
   let transaction = getTransactionValue();
   if (transaction) {
@@ -12,6 +14,7 @@ document.getElementById("accept-button").addEventListener("click", () => {
   resetInputFields();
 });
 
+// If a changed balance is sent from main.ts
 ipcRenderer.on("set-balance", (event, args) => {
   const balance = args;
   console.log(balance);
