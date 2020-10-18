@@ -1,5 +1,8 @@
 const { ipcRenderer } = require("electron");
 
+// Request main.ts to init balance display and user selector
+ipcRenderer.send("request-init-data");
+
 // Handle clicks on add-user button
 document.getElementById("add-user-button").addEventListener("click", () => {
   ipcRenderer.send("add-user");

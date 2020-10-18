@@ -104,6 +104,11 @@ ipcMain.on("request-balance", (event, username) => {
   setBalanceDisplay(username);
 });
 
+ipcMain.on("request-init-data", () => {
+  setBalanceDisplay("Otto");
+  setUserSelectorContents();
+});
+
 const setBalanceDisplay = (username: string): void => {
   tabDB.getBalanceOfUser(username).then((balance) => {
     mainWindow.webContents.send("set-balance", balance);
@@ -112,6 +117,7 @@ const setBalanceDisplay = (username: string): void => {
 
 const setUserSelectorContents = (): void => {
   tabDB.getUserNames().then((userList) => {
+    console.log(userList);
     mainWindow.webContents.send("populate-user-selector", userList);
   });
 };
