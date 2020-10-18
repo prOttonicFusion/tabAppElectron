@@ -54,8 +54,12 @@ class TabDB {
     );
   }
 
-  getUserNames(): Promise<any> {
-    return this.dataAccess.getAll(`SELECT name FROM tab`);
+  getUserNames(): Promise<string[]> {
+    return new Promise((resolve) =>
+      this.dataAccess
+        .getAll(`SELECT name FROM tab`)
+        .then((rows) => resolve(rows.map((r: { name: string }) => r.name)))
+    );
   }
 
   getBalanceOfUser(user: string): Promise<number> {
