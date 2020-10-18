@@ -109,3 +109,9 @@ const setBalanceDisplay = (username: string): void => {
     mainWindow.webContents.send("set-balance", balance);
   });
 };
+
+const setUserSelectorContents = (): void => {
+  tabDB.getUserNames().then((userList) => {
+    mainWindow.webContents.send("populate-user-selector", userList);
+  });
+};

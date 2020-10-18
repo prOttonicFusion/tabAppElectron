@@ -21,6 +21,19 @@ ipcRenderer.on("set-balance", (event, args) => {
   document.getElementById("balance-display").innerHTML = balance;
 });
 
+// Generate user selector dropdown
+ipcRenderer.on("populate-user-selector", (event, userList) => {
+  populateUserDropdown(userList);
+});
+
+function populateUserDropdown(userList) {
+  const dropdown = document.getElementById("user-selector");
+
+  for (var i = 0; i < userList.length; i++) {
+    dropdown.options.add(new Option(userList[i]));
+  }
+}
+
 function getTransactionValue() {
   let price = Number(document.getElementById("price-input").value);
   let deposit = Number(document.getElementById("recharge-input").value);
