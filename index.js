@@ -3,17 +3,22 @@ const { ipcRenderer } = require("electron");
 // Request main.ts to init balance display and user selector
 ipcRenderer.send("request-init-data");
 
-console.log(document.getElementById("user-selector").selected);
 // If a changed balance is sent from main.ts
 ipcRenderer.on("set-balance", (event, args) => {
   const balance = args;
-  console.log(balance);
   document.getElementById("balance-display").innerHTML = balance;
 });
 
 // Generate user selector dropdown
 ipcRenderer.on("populate-user-selector", (event, userList) => {
   populateUserDropdown(userList);
+});
+
+// Handle user selections
+document.getElementById("user-selector").addEventListener("click", () => {
+  const user = getSelectedUser();
+  console.log("Selected: ", user);
+  requestUserBalance(user);
 });
 
 // Handle clicks on add-user button
@@ -62,7 +67,6 @@ function resetInputFields() {
   document.getElementById("price-input").value = "";
 }
 
-function requestUserBalance() {
-  const name = "Otto";
-  ipcRenderer.send("request-balance", name);
+function requestUserBalance(userName) {
+  ipcRenderer.send("request-balance", userName);
 }
