@@ -38,9 +38,11 @@ document.getElementById("accept-button").addEventListener("click", () => {
 
 function populateUserDropdown(userList) {
   const dropdown = document.getElementById("user-selector");
-
-  for (var i = 0; i < userList.length; i++) {
-    dropdown.options.add(new Option(userList[i]));
+  for (var i = dropdown.options.length - 1; i >= 0; i--) {
+    dropdown.remove(i);
+  }
+  for (var j = 0; j < userList.length; j++) {
+    dropdown.options.add(new Option(userList[j]));
   }
 }
 
