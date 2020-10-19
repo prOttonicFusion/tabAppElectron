@@ -13,7 +13,7 @@ class TabService {
   }
 
   async addTransaction(user: string, transaction: number): Promise<boolean> {
-    const userBalance = await this.tabDB.getBalanceOfUser(user);
+    const userBalance = await this.tabDB.getBalanceOfUser(user).catch(() => 0);
     const newBalance = userBalance + transaction;
     const timeStamp = getFormattedDate();
 
