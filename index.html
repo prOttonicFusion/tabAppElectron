@@ -17,12 +17,15 @@
   <body>
     <div class="main-container">
       <div id="window-left">
-        <div class="user-selector-container">
-          <label for="user-selector">Användare:</label>
-          <select name="user-selector" id="user-selector"></select>
-        </div>
-        <div class="balance-container">
-          Balance: <span id="balance-display"></span> €
+        <div class="form">
+          <div>
+            <label for="user-selector">Användare:</label>
+            <select name="user-selector" id="user-selector"></select>
+          </div>
+          <div>
+            <label for="balance-display">Balance:</label>
+            <span id="balance-display"></span> €
+          </div>
         </div>
         <div class="logo-container">[Logo]</div>
         <div class="add-user-container">
@@ -32,13 +35,15 @@
         </div>
       </div>
       <div id="window-right">
-        <div class="buy-container">
-          <label for="price-input">Köp:</label>
-          <input type="text" id="price-input" name="price-input" /> €
-        </div>
-        <div class="recharge-container">
-          <label for="recharge-input">Ladda:</label>
-          <input type="text" id="recharge-input" name="recharge-input" /> €
+        <div class="form">
+          <span>
+            <label for="price-input">Köp:</label>
+            <input type="text" id="price-input" name="price-input" /> €
+          </span>
+          <span>
+            <label for="recharge-input">Ladda:</label>
+            <input type="text" id="recharge-input" name="recharge-input" /> €
+          </span>
         </div>
         <div class="accept-container">
           <button id="accept-button" type="button">Godkänn</button>
