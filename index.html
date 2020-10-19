@@ -20,7 +20,9 @@
         <div class="form">
           <div>
             <label for="user-selector">Användare:</label>
-            <select name="user-selector" id="user-selector"></select>
+            <select name="user-selector" id="user-selector">
+              <option disabled selected value>-- Välj --</option>
+            </select>
           </div>
           <div>
             <label for="balance-display">Balance:</label>
@@ -38,11 +40,23 @@
         <div class="form">
           <span>
             <label for="price-input">Köp:</label>
-            <input type="text" id="price-input" class="money-input" name="price-input" /> €
+            <input
+              type="text"
+              id="price-input"
+              class="money-input"
+              name="price-input"
+            />
+            €
           </span>
           <span>
             <label for="recharge-input">Ladda:</label>
-            <input type="text" id="recharge-input" class="money-input" name="recharge-input" /> €
+            <input
+              type="text"
+              id="recharge-input"
+              class="money-input"
+              name="recharge-input"
+            />
+            €
           </span>
         </div>
         <div class="accept-container">

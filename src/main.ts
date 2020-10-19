@@ -107,7 +107,6 @@ ipcMain.on("request-balance", (event, username) => {
 });
 
 ipcMain.on("request-init-data", () => {
-  setBalanceDisplay("Otto");
   setUserSelectorContents();
 });
 
