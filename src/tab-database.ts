@@ -1,5 +1,11 @@
 import DataBaseAccess from "./data-access";
 
+interface ILogEntry {
+    name: string,
+    timestamp: string,
+    transact: number
+}
+
 class TabDB {
   dataAccess: DataBaseAccess;
 
@@ -73,6 +79,22 @@ class TabDB {
             resolve(row.balance);
           } else {
             const err = "Could not get user balance";
+            console.log(err);
+            reject(err);
+          }
+        })
+    );
+  }
+
+  getLogsOfUser(user: string): Promise<ILogEntry[]> {
+    return new Promise((resolve, reject) =>
+      this.dataAccess
+        .getAll(`SELECT * FROM history WHERE name=?`, [user])
+        .then((rows) => {
+          if (rows) {
+            resolve(rows);
+          } else {
+            const err = "Could not get user logs";
             console.log(err);
             reject(err);
           }
