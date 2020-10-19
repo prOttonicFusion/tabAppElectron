@@ -3,10 +3,20 @@ const { ipcRenderer } = require("electron");
 // Request main.ts to init balance display and user selector
 ipcRenderer.send("request-init-data");
 
-// If a changed balance is sent from main.ts
-ipcRenderer.on("set-balance", (event, args) => {
+// If new user data is sent from main.ts
+ipcRenderer.on("render-balance", (event, args) => {
   const balance = args;
   document.getElementById("balance-display").innerHTML = balance;
+});
+
+ipcRenderer.on("render-logs", (event, logs) => {
+  for (let i = 0; i < logs.length; i++) {
+    const entry = `<div>
+        <span class="log-timestamp">${logs[i].timestamp}</span>
+        <span class="log-transaction">${logs[i].transact}</span>
+    </div>`;
+    document.getElementById("log-container").innerHTML += entry;
+  }
 });
 
 // Generate user selector dropdown
@@ -18,7 +28,7 @@ ipcRenderer.on("populate-user-selector", (event, userList) => {
 document.getElementById("user-selector").addEventListener("click", () => {
   const user = getSelectedUser();
   console.log("Selected: ", user);
-  requestUserBalance(user);
+  requestUserData(user);
 });
 
 // Handle clicks on add-user button
@@ -69,6 +79,6 @@ function resetInputFields() {
   document.getElementById("price-input").value = "";
 }
 
-function requestUserBalance(userName) {
-  ipcRenderer.send("request-balance", userName);
+function requestUserData(userName) {
+  ipcRenderer.send("request-userdata", userName);
 }

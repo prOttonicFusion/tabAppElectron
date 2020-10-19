@@ -99,24 +99,25 @@ ipcMain.on("accept-transaction", (event, args) => {
   const { user, transaction } = args[0];
   tabService
     .addTransaction(user, transaction)
-    .then(() => setBalanceDisplay(user));
+    .then(() => sendUserdataForRendering(user));
 });
 
-ipcMain.on("request-balance", (event, username) => {
-  setBalanceDisplay(username);
+ipcMain.on("request-userdata", (event, username) => {
+  sendUserdataForRendering(username);
 });
 
 ipcMain.on("request-init-data", () => {
   setUserSelectorContents();
 });
 
-const setBalanceDisplay = (username: string): void => {
-  tabDB
-    .getBalanceOfUser(username)
-    .then((balance) => {
-      mainWindow.webContents.send("set-balance", balance);
-    })
-    .catch(() => 0);
+const sendUserdataForRendering = (username: string): void => {
+  tabDB.getBalanceOfUser(username).then((balance) => {
+    mainWindow.webContents.send("render-balance", balance);
+  });
+
+  tabDB.getLogsOfUser(username).then((logs) => {
+    mainWindow.webContents.send("render-logs", logs);
+  });
 };
 
 const setUserSelectorContents = (): void => {
