@@ -48,14 +48,37 @@ document.getElementById("add-user-button").addEventListener("click", () => {
 });
 
 // Handle clicks on button for accepting transactions
-document.getElementById("accept-button").addEventListener("click", () => {
+document
+  .getElementById("accept-button")
+  .addEventListener("click", () => handleTransactionSubmit());
+
+// Register keyboard event listeners
+document
+  .getElementById("recharge-input")
+  .addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+      handleTransactionSubmit();
+      return true;
+    }
+  });
+
+document
+  .getElementById("price-input")
+  .addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+      handleTransactionSubmit();
+      return true;
+    }
+  });
+
+function handleTransactionSubmit() {
   let transaction = getTransactionValue();
   const user = getSelectedUser();
   if (transaction) {
     ipcRenderer.send("accept-transaction", [{ user, transaction }]);
   }
   resetInputFields();
-});
+}
 
 function populateUserDropdown(userList) {
   const dropdown = document.getElementById("user-selector");
