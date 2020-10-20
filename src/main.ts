@@ -111,9 +111,12 @@ ipcMain.on("request-init-data", () => {
 });
 
 const sendUserdataForRendering = (username: string): void => {
-  tabDB.getBalanceOfUser(username).then((balance) => {
-    mainWindow.webContents.send("render-balance", balance);
-  });
+  tabDB
+    .getBalanceOfUser(username)
+    .then((balance) => {
+      mainWindow.webContents.send("render-balance", balance);
+    })
+    .catch(() => mainWindow.webContents.send("render-balance", 0));
 
   tabDB.getLogsOfUser(username).then((logs) => {
     mainWindow.webContents.send("render-logs", logs);
