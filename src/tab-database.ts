@@ -1,9 +1,9 @@
 import DataBaseAccess from "./data-access";
 
 interface ILogEntry {
-    name: string,
-    timestamp: string,
-    transact: number
+  name: string;
+  timestamp: string;
+  transact: number;
 }
 
 class TabDB {
@@ -23,11 +23,9 @@ class TabDB {
   }
 
   addUser(name: string, initialBalance: number): Promise<boolean> {
-    return (
-      this.dataAccess.run("INSERT INTO tab (name, balance) VALUES (?, ?)", [
-        name,
-        initialBalance,
-      ]) && this.dataAccess.run("INSERT INTO history (name) VALUES (?)", [name])
+    return this.dataAccess.run(
+      "INSERT INTO tab (name, balance) VALUES (?, ?)",
+      [name, initialBalance]
     );
   }
 
