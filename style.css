@@ -62,6 +62,12 @@ button:active {
   align-items: flex-start;
 }
 
+.form-item {
+  display: flex;
+  justify-content: space-between;
+  width: 280px;
+}
+
 #window-left {
   width: 50%;
   margin: 10px;
@@ -88,7 +94,7 @@ button:active {
   background-color: #232629;
   font-size: 14px;
   height: 50%;
-  width: 270px;
+  width: 280px;
 }
 
 .log-entry {
@@ -97,7 +103,11 @@ button:active {
   margin: 0;
   padding: 0 15px;
   height: 1.5em;
-  width: 220px;
+  width: 230px;
+}
+
+#user-selector {
+  margin-right: 0;
 }
 
 .log-timestamp {

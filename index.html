@@ -18,17 +18,19 @@
     <div class="main-container">
       <div id="window-left">
         <div class="form">
-          <div>
+          <span class="form-item">
             <label for="user-selector">Användare:</label>
+            <span>
             <select name="user-selector" id="user-selector">
               <option disabled selected value>-- Välj --</option>
             </select>
-          </div>
-          <div>
+          </span>
+          </span>
+          <span class="form-item">
             <label for="balance-display">Balance:</label>
-            <span id="balance-display"></span> €
+            <span><span id="balance-display"></span> €</span>
           </div>
-        </div>
+        </span>
         <div class="logo-container">[Logo]</div>
         <div class="add-user-container">
           <button id="add-user-button" type="button">
@@ -38,25 +40,29 @@
       </div>
       <div id="window-right">
         <div class="form">
-          <span>
+          <span class="form-item">
             <label for="price-input">Köp:</label>
-            <input
-              type="text"
-              id="price-input"
-              class="money-input"
-              name="price-input"
-            />
-            €
+            <span>
+              <input
+                type="text"
+                id="price-input"
+                class="money-input"
+                name="price-input"
+              />
+              €
+            </span>
           </span>
-          <span>
+          <span class="form-item">
             <label for="recharge-input">Ladda:</label>
-            <input
-              type="text"
-              id="recharge-input"
-              class="money-input"
-              name="recharge-input"
-            />
-            €
+            <span>
+              <input
+                type="text"
+                id="recharge-input"
+                class="money-input"
+                name="recharge-input"
+              />
+              €
+            </span>
           </span>
         </div>
         <div class="accept-container">
