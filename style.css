@@ -5,11 +5,14 @@ body {
   font-size: 16px;
 }
 
-label, input, select {
+label,
+input,
+select {
   font-size: 18px;
 }
 
-input, select {
+input,
+select {
   background-color: #232629;
   color: #c5c5c5;
   margin: 5px 10px 5px 5px;
@@ -18,9 +21,11 @@ input, select {
   vertical-align: middle;
 }
 
-input:focus, textarea:focus, select:active {
+input:focus,
+textarea:focus,
+select:active {
   outline: none !important;
-  border: 3px solid #019cd4
+  border: 3px solid #019cd4;
 }
 
 .money-input {
@@ -66,6 +71,10 @@ button:active {
   display: flex;
   justify-content: space-between;
   width: 280px;
+}
+
+.negative-balance {
+  color: #ff0000;
 }
 
 #window-left {

@@ -1,19 +1,26 @@
 const { ipcRenderer } = require("electron");
 
+const currencySymbol = "€";
+
 // Request main.ts to init balance display and user selector
 ipcRenderer.send("request-init-data");
 
 // If new user data is sent from main.ts
 ipcRenderer.on("render-balance", (event, args) => {
+  const balanceDisplay = document.getElementById("balance-display");
   const balance = args;
-  document.getElementById("balance-display").innerHTML = balance;
+  if (balance < 0) {
+    balanceDisplay.classList.add("negative-balance");
+  } else {
+    balanceDisplay.classList.remove("negative-balance");
+  }
+  balanceDisplay.innerHTML = `${balance.toFixed(2)} ${currencySymbol}`;
 });
 
 ipcRenderer.on("render-logs", (event, args) => {
   const logContainer = document.getElementById("log-container");
   logContainer.innerHTML = null;
   const logs = args.reverse();
-  const currencySymbol = "€";
   for (let i = 0; i < logs.length; i++) {
     const entry = `<div class="log-entry">
         <span class="log-timestamp">${logs[i].timestamp}</span>
