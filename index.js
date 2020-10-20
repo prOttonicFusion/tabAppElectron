@@ -8,7 +8,7 @@ ipcRenderer.send("request-init-data");
 // If new user data is sent from main.ts
 ipcRenderer.on("render-balance", (event, args) => {
   const balanceDisplay = document.getElementById("balance-display");
-  const balance = args;
+  const balance = args[0].balance;
   if (balance < 0) {
     balanceDisplay.classList.add("negative-balance");
   } else {
@@ -20,7 +20,7 @@ ipcRenderer.on("render-balance", (event, args) => {
 ipcRenderer.on("render-logs", (event, args) => {
   const logContainer = document.getElementById("log-container");
   logContainer.innerHTML = null;
-  const logs = args.reverse();
+  const logs = args[0].logs.reverse();
   for (let i = 0; i < logs.length; i++) {
     const entry = `<div class="log-entry">
         <span class="log-timestamp">${logs[i].timestamp}</span>
