@@ -9,13 +9,17 @@ ipcRenderer.on("render-balance", (event, args) => {
   document.getElementById("balance-display").innerHTML = balance;
 });
 
-ipcRenderer.on("render-logs", (event, logs) => {
+ipcRenderer.on("render-logs", (event, args) => {
+  const logContainer = document.getElementById("log-container");
+  logContainer.innerHTML = null;
+  const logs = args.reverse();
+  const currencySymbol = "€";
   for (let i = 0; i < logs.length; i++) {
-    const entry = `<div>
+    const entry = `<div class="log-entry">
         <span class="log-timestamp">${logs[i].timestamp}</span>
-        <span class="log-transaction">${logs[i].transact}</span>
+        <span class="log-transaction">${logs[i].transact} ${currencySymbol}</span>
     </div>`;
-    document.getElementById("log-container").innerHTML += entry;
+    logContainer.innerHTML += entry;
   }
 });
 
