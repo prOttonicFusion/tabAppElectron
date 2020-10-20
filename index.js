@@ -31,8 +31,8 @@ ipcRenderer.on("render-logs", (event, args) => {
 });
 
 // Generate user selector dropdown
-ipcRenderer.on("populate-user-selector", (event, userList) => {
-  populateUserDropdown(userList);
+ipcRenderer.on("populate-user-selector", (event, args) => {
+  populateUserDropdown(args[0]);
 });
 
 // Handle user selections
@@ -80,13 +80,18 @@ function handleTransactionSubmit() {
   resetInputFields();
 }
 
-function populateUserDropdown(userList) {
+function populateUserDropdown(usersData) {
+  const userList = usersData.userList;
   const dropdown = document.getElementById("user-selector");
   for (var i = dropdown.options.length - 1; i >= 1; i--) {
     dropdown.remove(i);
   }
   for (var j = 1; j < userList.length; j++) {
     dropdown.options.add(new Option(userList[j]));
+  }
+  if (usersData.currentUser) {
+    console.log(usersData);
+    dropdown.value = usersData.currentUser;
   }
 }
 

@@ -54,7 +54,7 @@ const tabDB = new TabDB(dataAccess);
 tabDB.init();
 const tabService = new TabService(tabDB);
 
-// Add event managers
+// Add ipc event managers
 let addUserWindow: BrowserWindow;
 
 ipcMain.on("add-user", () => {
@@ -90,7 +90,7 @@ ipcMain.on("accept-add-user", (event, args) => {
   const { user, initialBalance } = args[0];
   tabService.addUser(user, initialBalance).then(() => {
     addUserWindow.close();
-    setUserSelectorContents();
+    sendUserSelectorContents(user);
   });
 });
 
@@ -107,7 +107,7 @@ ipcMain.on("request-userdata", (event, username) => {
 });
 
 ipcMain.on("request-init-data", () => {
-  setUserSelectorContents();
+  sendUserSelectorContents();
 });
 
 const sendUserdataForRendering = (username: string): void => {
@@ -123,9 +123,9 @@ const sendUserdataForRendering = (username: string): void => {
   });
 };
 
-const setUserSelectorContents = (): void => {
+const sendUserSelectorContents = (currentUser?: string): void => {
   tabDB.getUserNames().then((userList) => {
     console.log(userList);
-    mainWindow.webContents.send("populate-user-selector", userList);
+    mainWindow.webContents.send("populate-user-selector", [{userList, currentUser}]);
   });
 };
