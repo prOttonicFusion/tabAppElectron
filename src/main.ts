@@ -1,8 +1,9 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, Menu, MenuItem } from "electron";
 import * as path from "path";
 import DataBaseAccess from "./data-access";
 import TabDB from "./tab-database";
 import TabService from "./tab-service";
+import menuTemplate from "./menu-template";
 
 let mainWindow: BrowserWindow;
 
@@ -45,6 +46,10 @@ app.on("window-all-closed", () => {
     app.quit();
   }
 });
+
+// Set up app menu
+const menu = Menu.buildFromTemplate(menuTemplate);
+Menu.setApplicationMenu(menu);
 
 // Connect to database
 const dataAccess = new DataBaseAccess(
@@ -114,18 +119,20 @@ const sendUserdataForRendering = (username: string): void => {
   tabDB
     .getBalanceOfUser(username)
     .then((balance) => {
-      mainWindow.webContents.send("render-balance", [{balance}]);
+      mainWindow.webContents.send("render-balance", [{ balance }]);
     })
     .catch(() => mainWindow.webContents.send("render-balance", 0));
 
   tabDB.getLogsOfUser(username).then((logs) => {
-    mainWindow.webContents.send("render-logs", [{logs}]);
+    mainWindow.webContents.send("render-logs", [{ logs }]);
   });
 };
 
 const sendUserSelectorContents = (currentUser?: string): void => {
   tabDB.getUserNames().then((userList) => {
     console.log(userList);
-    mainWindow.webContents.send("populate-user-selector", [{userList, currentUser}]);
+    mainWindow.webContents.send("populate-user-selector", [
+      { userList, currentUser },
+    ]);
   });
 };
