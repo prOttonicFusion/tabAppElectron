@@ -72,7 +72,7 @@ document
   });
 
 function handleTransactionSubmit() {
-  let transaction = getTransactionValue();
+  let transaction = getValidTransactionValueOrZero();
   const user = getSelectedUser();
   if (transaction) {
     ipcRenderer.send("accept-transaction", [{ user, transaction }]);
@@ -95,9 +95,13 @@ function populateUserDropdown(usersData) {
   }
 }
 
-function getTransactionValue() {
-  let price = Number(document.getElementById("price-input").value);
-  let deposit = Number(document.getElementById("recharge-input").value);
+function getValidTransactionValueOrZero() {
+  let price = Number(
+    document.getElementById("price-input").value.replace(",", ".")
+  );
+  let deposit = Number(
+    document.getElementById("recharge-input").value.replace(",", ".")
+  );
   var value = 0.0;
   if (price) {
     value -= price;
