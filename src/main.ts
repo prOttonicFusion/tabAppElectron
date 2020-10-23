@@ -99,7 +99,7 @@ ipcMain.on("accept-add-user", (event, args) => {
       addUserWindow.close();
       sendUserSelectorContents(user);
     })
-    .catch((err) => console.log(dialog.showErrorBox('Error', err)));
+    .catch((err) => console.log(dialog.showErrorBox("Error", err)));
 });
 
 ipcMain.on("accept-transaction", (event, args) => {

@@ -60,14 +60,37 @@ class TabDB {
     ]);
   }
 
+  trimUserHistory(name: string): Promise<boolean> {
+    const maxHistoryItems = 50;
+    return new Promise((resolve, reject) =>
+      this.dataAccess
+        .get(`SELECT COUNT(*) from history WHERE name=?`, [name])
+        .then((result) => {
+          const historyEntryCount = result["COUNT(*)"];
+          if (historyEntryCount >= maxHistoryItems) {
+            const itemRemovalCount = historyEntryCount - maxHistoryItems;
+            this.dataAccess
+              .run(
+                `DELETE FROM history WHERE rowid IN (SELECT rowid FROM history WHERE name=? limit ?);`,
+                [name, itemRemovalCount]
+              )
+              .catch((err) => reject(err));
+          }
+          resolve(true);
+        })
+    );
+  }
+
   updateHistory(
     name: string,
     timeStamp: string,
     transaction: number
   ): Promise<boolean> {
-    return this.dataAccess.run(
-      `INSERT INTO history (name, timestamp, transact) VALUES (?, ?, ?)`,
-      [name, timeStamp, transaction]
+    return (
+      this.dataAccess.run(
+        `INSERT INTO history (name, timestamp, transact) VALUES (?, ?, ?)`,
+        [name, timeStamp, transaction]
+      ) && this.trimUserHistory(name)
     );
   }
 
