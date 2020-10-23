@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Menu, MenuItem } from "electron";
+import { app, BrowserWindow, ipcMain, Menu, dialog } from "electron";
 import * as path from "path";
 import DataBaseAccess from "./data-access";
 import TabDB from "./tab-database";
@@ -93,10 +93,13 @@ ipcMain.on("cancel-add-user", () => {
 
 ipcMain.on("accept-add-user", (event, args) => {
   const { user, initialBalance } = args[0];
-  tabService.addUser(user, initialBalance).then(() => {
-    addUserWindow.close();
-    sendUserSelectorContents(user);
-  });
+  tabService
+    .addUser(user, initialBalance)
+    .then(() => {
+      addUserWindow.close();
+      sendUserSelectorContents(user);
+    })
+    .catch((err) => console.log(dialog.showErrorBox('Error', err)));
 });
 
 ipcMain.on("accept-transaction", (event, args) => {

@@ -23,9 +23,22 @@ class TabDB {
   }
 
   addUser(name: string, initialBalance: number): Promise<boolean> {
-    return this.dataAccess.run(
-      "INSERT INTO tab (name, balance) VALUES (?, ?)",
-      [name, initialBalance]
+    return new Promise((resolve, reject) =>
+      this.dataAccess
+        .get(`SELECT * FROM tab WHERE name=?`, [name])
+        .then((row) => {
+          if (row) {
+            const err = "User already exists in database!";
+            reject(err);
+          } else {
+            resolve(
+              this.dataAccess.run(
+                "INSERT INTO tab (name, balance) VALUES (?, ?)",
+                [name, initialBalance]
+              )
+            );
+          }
+        })
     );
   }
 
