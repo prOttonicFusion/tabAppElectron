@@ -129,6 +129,16 @@ ipcMain.on("export-database", (event, args) => {
   }
 });
 
+ipcMain.on("import-database", (event, args) => {
+  const { newDBPath } = args[0];
+  if (newDBPath) {
+    tabDB
+      .importDB(newDBPath)
+      .then(() => console.log("Imported!"))
+      .catch((err) => console.log(err));
+  }
+});
+
 ipcMain.on("delete-current-user", (event, args) => {
   const { user } = args[0];
   tabDB

@@ -39,6 +39,10 @@ ipcRenderer.on("export-database", (event, args) => {
   ipcRenderer.send("export-database", args);
 });
 
+ipcRenderer.on("import-database", (event, args) => {
+  ipcRenderer.send("import-database", args);
+});
+
 // Handle user deletion
 ipcRenderer.on("delete-current-user", () => {
   const user = getSelectedUser();

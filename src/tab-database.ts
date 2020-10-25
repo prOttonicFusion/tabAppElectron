@@ -138,17 +138,29 @@ class TabDB {
 
   async exportDB(newDBPath: string): Promise<void> {
     const newDataAccess = new DataBaseAccess(newDBPath);
+    await this.syncDBs(this.dataAccess, newDataAccess);
+  }
+
+  async importDB(newDBPath: string): Promise<void> {
+    const newDataAccess = new DataBaseAccess(newDBPath);
+    await this.syncDBs(newDataAccess, this.dataAccess);
+  }
+
+  private async syncDBs(
+    source: DataBaseAccess,
+    target: DataBaseAccess
+  ): Promise<void> {
     const tables: string[] = ["tab", "history"];
 
     const sqlQuery1 = `CREATE TABLE IF NOT EXISTS tab (name TEXT, balance REAL);`;
     const sqlQuery2 = `CREATE TABLE IF NOT EXISTS history (name TEXT, timestamp TEXT, transact REAL)`;
-    (await newDataAccess.run(sqlQuery1)) && newDataAccess.run(sqlQuery2);
+    (await target.run(sqlQuery1)) && target.run(sqlQuery2);
 
     let columns: string;
     let values = "";
 
     await tables.forEach((table) => {
-      this.dataAccess.getAll(`SELECT * FROM ${table};`).then((rows) => {
+      source.getAll(`SELECT * FROM ${table};`).then((rows) => {
         const row = rows[0];
         const keys = Object.keys(row); // ['column1', 'column2']
         columns = keys.toString(); // 'column1,column2'
@@ -168,9 +180,7 @@ class TabDB {
 
         // SQL: insert into table (column1,column2) values ($column1,$column2)
         // Parameters: { $column1: 'foo', $column2: 'bar' }
-        newDataAccess.run(
-          `INSERT INTO ${table} (${columns}) VALUES ${values};`
-        );
+        target.run(`INSERT INTO ${table} (${columns}) VALUES ${values};`);
       });
     });
   }

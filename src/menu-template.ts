@@ -17,8 +17,8 @@ const menuTemplate: MenuItemConstructorOptions[] = [
       },
       {
         label: "Import database",
-        click() {
-          importDB();
+        click(menuItem, browserWindow) {
+          importDB(browserWindow);
         },
       },
       { role: "close" },
@@ -93,9 +93,17 @@ const exportDB = (browserWindow: BrowserWindow) => {
   browserWindow.webContents.send("export-database", [{ newDBPath }]);
 };
 
-const importDB = () => {
-  const focusedWindow = BrowserWindow.getFocusedWindow();
-  focusedWindow.webContents.send("import-database");
+const importDB = (browserWindow: BrowserWindow) => {
+  const newDBPath = dialog.showSaveDialogSync({
+    title: "Import database:",
+    filters: [
+      {
+        name: "Sqlite3 Database",
+        extensions: ["db"],
+      },
+    ],
+  });
+  browserWindow.webContents.send("import-database", [{ newDBPath }]);
 };
 
 const handleLearnMore = () => {
