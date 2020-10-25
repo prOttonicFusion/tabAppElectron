@@ -86,7 +86,7 @@ const exportDB = (browserWindow: BrowserWindow) => {
     filters: [
       {
         name: "Sqlite3 Database",
-        extensions: ["db"],
+        extensions: ["db", "sqlite3"],
       },
     ],
   });
@@ -99,7 +99,7 @@ const importDB = (browserWindow: BrowserWindow) => {
     filters: [
       {
         name: "Sqlite3 Database",
-        extensions: ["db"],
+        extensions: ["db", "sqlite3"],
       },
     ],
   });
