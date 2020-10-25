@@ -168,5 +168,12 @@ const sendUserSelectorContents = (currentUser?: string): void => {
     mainWindow.webContents.send("populate-user-selector", [
       { userList, currentUser },
     ]);
+    if (currentUser) {
+      tabDB
+        .getBalanceOfUser(currentUser)
+        .then((balance) =>
+          mainWindow.webContents.send("render-balance", [{ balance }])
+        );
+    }
   });
 };
