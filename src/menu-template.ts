@@ -1,4 +1,9 @@
-import { shell, BrowserWindow, MenuItemConstructorOptions } from "electron";
+import {
+  shell,
+  dialog,
+  BrowserWindow,
+  MenuItemConstructorOptions,
+} from "electron";
 
 const menuTemplate: MenuItemConstructorOptions[] = [
   {
@@ -25,7 +30,13 @@ const menuTemplate: MenuItemConstructorOptions[] = [
       { role: "cut" },
       { role: "copy" },
       { role: "paste" },
-      { role: "delete" },
+      { type: "separator" },
+      {
+        label: "Delete User",
+        click(menuItem, browserWindow) {
+          deleteUser(browserWindow);
+        },
+      },
     ],
   },
   {
@@ -56,8 +67,17 @@ const menuTemplate: MenuItemConstructorOptions[] = [
   },
 ];
 
-const handleLearnMore = () => {
-  shell.openExternal("https://github.com/prOttonicFusion/tabAppelectron");
+const deleteUser = (browserWindow: BrowserWindow) => {
+  const buttonIndex = dialog.showMessageBoxSync(browserWindow, {
+    type: "question",
+    title: "Delete Current User",
+    message: "Do you really wish to delete the current user permanently?",
+    cancelId: 0,
+    buttons: ["Cancel", "Delete user"],
+  });
+  if (buttonIndex == 1) {
+    browserWindow.webContents.send("delete-current-user");
+  }
 };
 
 const exportDB = (browserWindow: BrowserWindow) => {
@@ -68,6 +88,10 @@ const exportDB = (browserWindow: BrowserWindow) => {
 const importDB = () => {
   const focusedWindow = BrowserWindow.getFocusedWindow();
   focusedWindow.webContents.send("import-database");
+};
+
+const handleLearnMore = () => {
+  shell.openExternal("https://github.com/prOttonicFusion/tabAppelectron");
 };
 
 export default menuTemplate;

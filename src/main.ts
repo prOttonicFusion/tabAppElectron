@@ -137,6 +137,16 @@ ipcMain.on("export-database", () => {
   }
 });
 
+ipcMain.on("delete-current-user", (event, args) => {
+  const { user } = args[0];
+  tabDB
+    .deleteUser(user)
+    .then(() => sendUserSelectorContents())
+    .catch(() =>
+      console.log(dialog.showErrorBox("Error", `Unable to delete user ${user}`))
+    );
+});
+
 const sendUserdataForRendering = (username: string): void => {
   tabDB
     .getBalanceOfUser(username)

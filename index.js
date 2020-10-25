@@ -39,6 +39,12 @@ ipcRenderer.on("export-database", () => {
   ipcRenderer.send("export-database");
 });
 
+// Handle user deletion
+ipcRenderer.on("delete-current-user", () => {
+  const user = getSelectedUser();
+  ipcRenderer.send("delete-current-user", [{user}]);
+});
+
 // Handle user selections
 document.getElementById("user-selector").addEventListener("click", () => {
   const user = getSelectedUser();
