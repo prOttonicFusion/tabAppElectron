@@ -1,9 +1,23 @@
-import { shell, MenuItemConstructorOptions } from "electron";
+import { shell, BrowserWindow, MenuItemConstructorOptions } from "electron";
 
 const menuTemplate: MenuItemConstructorOptions[] = [
   {
     label: "File",
-    submenu: [{ role: "close" }],
+    submenu: [
+      {
+        label: "Export database",
+        click(menuItem, browserWindow) {
+          exportDB(browserWindow);
+        },
+      },
+      {
+        label: "Import database",
+        click() {
+          importDB();
+        },
+      },
+      { role: "close" },
+    ],
   },
   {
     label: "Edit",
@@ -43,7 +57,17 @@ const menuTemplate: MenuItemConstructorOptions[] = [
 ];
 
 const handleLearnMore = () => {
-    shell.openExternal("https://github.com/prOttonicFusion/tabAppelectron");
-}
+  shell.openExternal("https://github.com/prOttonicFusion/tabAppelectron");
+};
+
+const exportDB = (browserWindow: BrowserWindow) => {
+  console.log(browserWindow);
+  browserWindow.webContents.send("export-database");
+};
+
+const importDB = () => {
+  const focusedWindow = BrowserWindow.getFocusedWindow();
+  focusedWindow.webContents.send("import-database");
+};
 
 export default menuTemplate;

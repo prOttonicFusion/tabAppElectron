@@ -118,6 +118,20 @@ ipcMain.on("request-init-data", () => {
   sendUserSelectorContents();
 });
 
+ipcMain.on("export-database", () => {
+  console.log("Export initiated!");
+  const newDBPath = dialog.showSaveDialogSync({
+    title: "Export database as:",
+  });
+  if (newDBPath) {
+    console.log("Export path set!");
+    tabDB
+      .exportDB(newDBPath)
+      .then(() => console.log("Exported!"))
+      .catch((err) => console.log(err));
+  }
+});
+
 const sendUserdataForRendering = (username: string): void => {
   tabDB
     .getBalanceOfUser(username)

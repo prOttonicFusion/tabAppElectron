@@ -35,6 +35,10 @@ ipcRenderer.on("populate-user-selector", (event, args) => {
   populateUserDropdown(args[0]);
 });
 
+ipcRenderer.on("export-database", () => {
+  ipcRenderer.send("export-database");
+});
+
 // Handle user selections
 document.getElementById("user-selector").addEventListener("click", () => {
   const user = getSelectedUser();
