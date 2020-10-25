@@ -17,7 +17,7 @@ class TabDB {
     const sqlQuery1 = `
       CREATE TABLE IF NOT EXISTS tab (name TEXT type UNIQUE, balance REAL)`;
     const sqlQuery2 = `
-      CREATE TABLE IF NOT EXISTS history (name TEXT, timestamp TEXT, transact REAL)`;
+      CREATE TABLE IF NOT EXISTS history (transacton_id INTEGER PRIMARY KEY, name TEXT, timestamp TEXT, transact REAL)`;
 
     return this.dataAccess.run(sqlQuery1) && this.dataAccess.run(sqlQuery2);
   }
@@ -153,7 +153,7 @@ class TabDB {
     const tables: string[] = ["tab", "history"];
 
     const sqlQuery1 = `CREATE TABLE IF NOT EXISTS tab (name TEXT type UNIQUE, balance REAL);`;
-    const sqlQuery2 = `CREATE TABLE IF NOT EXISTS history (name TEXT, timestamp TEXT, transact REAL)`;
+    const sqlQuery2 = `CREATE TABLE IF NOT EXISTS history (transacton_id INTEGER PRIMARY KEY, name TEXT, timestamp TEXT, transact REAL)`;
     (await target.run(sqlQuery1)) && target.run(sqlQuery2);
 
     let columns: string;
