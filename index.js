@@ -104,8 +104,8 @@ function populateUserDropdown(usersData) {
   for (var i = dropdown.options.length - 1; i >= 1; i--) {
     dropdown.remove(i);
   }
-  for (var j = 1; j < userList.length; j++) {
-    dropdown.options.add(new Option(userList[j]));
+  for (var j = 1; j <= userList.length; j++) {
+    dropdown.options.add(new Option(userList[j - 1]));
   }
   if (usersData.currentUser) {
     console.log(usersData);
