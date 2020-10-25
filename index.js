@@ -35,8 +35,8 @@ ipcRenderer.on("populate-user-selector", (event, args) => {
   populateUserDropdown(args[0]);
 });
 
-ipcRenderer.on("export-database", () => {
-  ipcRenderer.send("export-database");
+ipcRenderer.on("export-database", (event, args) => {
+  ipcRenderer.send("export-database", args);
 });
 
 // Handle user deletion

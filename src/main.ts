@@ -118,16 +118,8 @@ ipcMain.on("request-init-data", () => {
   sendUserSelectorContents();
 });
 
-ipcMain.on("export-database", () => {
-  const newDBPath = dialog.showSaveDialogSync({
-    title: "Export database as:",
-    filters: [
-      {
-        name: "Sqlite3 Database",
-        extensions: ["db"],
-      },
-    ],
-  });
+ipcMain.on("export-database", (event, args) => {
+  const { newDBPath } = args[0];
   if (newDBPath) {
     console.log("Export path set!");
     tabDB

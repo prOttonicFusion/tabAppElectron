@@ -81,8 +81,16 @@ const deleteUser = (browserWindow: BrowserWindow) => {
 };
 
 const exportDB = (browserWindow: BrowserWindow) => {
-  console.log(browserWindow);
-  browserWindow.webContents.send("export-database");
+  const newDBPath = dialog.showSaveDialogSync({
+    title: "Export database as:",
+    filters: [
+      {
+        name: "Sqlite3 Database",
+        extensions: ["db"],
+      },
+    ],
+  });
+  browserWindow.webContents.send("export-database", [{ newDBPath }]);
 };
 
 const importDB = () => {
