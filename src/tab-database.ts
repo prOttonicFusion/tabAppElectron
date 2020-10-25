@@ -15,7 +15,7 @@ class TabDB {
 
   init(): Promise<boolean> {
     const sqlQuery1 = `
-      CREATE TABLE IF NOT EXISTS tab (name TEXT, balance REAL)`;
+      CREATE TABLE IF NOT EXISTS tab (name TEXT type UNIQUE, balance REAL)`;
     const sqlQuery2 = `
       CREATE TABLE IF NOT EXISTS history (name TEXT, timestamp TEXT, transact REAL)`;
 
@@ -152,7 +152,7 @@ class TabDB {
   ): Promise<void> {
     const tables: string[] = ["tab", "history"];
 
-    const sqlQuery1 = `CREATE TABLE IF NOT EXISTS tab (name TEXT, balance REAL);`;
+    const sqlQuery1 = `CREATE TABLE IF NOT EXISTS tab (name TEXT type UNIQUE, balance REAL);`;
     const sqlQuery2 = `CREATE TABLE IF NOT EXISTS history (name TEXT, timestamp TEXT, transact REAL)`;
     (await target.run(sqlQuery1)) && target.run(sqlQuery2);
 
