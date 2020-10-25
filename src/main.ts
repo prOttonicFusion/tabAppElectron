@@ -119,9 +119,14 @@ ipcMain.on("request-init-data", () => {
 });
 
 ipcMain.on("export-database", () => {
-  console.log("Export initiated!");
   const newDBPath = dialog.showSaveDialogSync({
     title: "Export database as:",
+    filters: [
+      {
+        name: "Sqlite3 Database",
+        extensions: ["db"],
+      },
+    ],
   });
   if (newDBPath) {
     console.log("Export path set!");
