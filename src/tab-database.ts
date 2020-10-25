@@ -180,7 +180,7 @@ class TabDB {
 
         // SQL: insert into table (column1,column2) values ($column1,$column2)
         // Parameters: { $column1: 'foo', $column2: 'bar' }
-        target.run(`INSERT INTO ${table} (${columns}) VALUES ${values};`);
+        target.run(`REPLACE INTO ${table} (${columns}) VALUES ${values};`);
       });
     });
   }

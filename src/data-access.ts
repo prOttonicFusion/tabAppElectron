@@ -5,6 +5,7 @@ class DataBaseAccess {
   db: Database;
 
   constructor(dbFilePath: string) {
+    console.log(dbFilePath);
     this.db = new Database(dbFilePath, (err) => {
       if (err) {
         console.log("Could not connect to database", err);

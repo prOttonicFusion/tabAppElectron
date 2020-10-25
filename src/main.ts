@@ -134,7 +134,7 @@ ipcMain.on("import-database", (event, args) => {
   if (newDBPath) {
     tabDB
       .importDB(newDBPath)
-      .then(() => console.log("Imported!"))
+      .then(() => sendUserSelectorContents())
       .catch((err) => console.log(err));
   }
 });
