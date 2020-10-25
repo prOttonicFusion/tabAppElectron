@@ -42,14 +42,18 @@ ipcRenderer.on("export-database", () => {
 // Handle user deletion
 ipcRenderer.on("delete-current-user", () => {
   const user = getSelectedUser();
-  ipcRenderer.send("delete-current-user", [{user}]);
+  if (user) {
+    ipcRenderer.send("delete-current-user", [{ user }]);
+  }
 });
 
 // Handle user selections
 document.getElementById("user-selector").addEventListener("click", () => {
   const user = getSelectedUser();
   console.log("Selected: ", user);
-  requestUserData(user);
+  if (user) {
+    requestUserData(user);
+  }
 });
 
 // Handle clicks on add-user button
@@ -84,7 +88,7 @@ document
 function handleTransactionSubmit() {
   let transaction = getValidTransactionValueOrZero();
   const user = getSelectedUser();
-  if (transaction) {
+  if (transaction && user) {
     ipcRenderer.send("accept-transaction", [{ user, transaction }]);
   }
   resetInputFields();
@@ -124,7 +128,11 @@ function getValidTransactionValueOrZero() {
 
 function getSelectedUser() {
   const selector = document.getElementById("user-selector");
-  return selector.options[selector.selectedIndex].text;
+  const selected = selector.options[selector.selectedIndex];
+  if (selected.id == "disabled-option") {
+    return null;
+  }
+  return selected.text;
 }
 
 function resetInputFields() {
