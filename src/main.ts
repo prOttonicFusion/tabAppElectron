@@ -2,7 +2,6 @@ import { app, BrowserWindow, ipcMain, Menu, dialog } from "electron";
 import * as path from "path";
 import DataBaseAccess from "./data-access";
 import TabDB from "./tab-database";
-import TabService from "./tab-service";
 import menuTemplate from "./menu-template";
 import AddUserHandler from "./handlers/main/add-user-handler";
 
@@ -58,12 +57,11 @@ const dataAccess = new DataBaseAccess(
 );
 const tabDB = new TabDB(dataAccess);
 tabDB.init();
-const tabService = new TabService(tabDB);
 
 ipcMain.on("accept-transaction", (event, args) => {
   console.log("Pressed: accept", args);
   const { user, transaction } = args[0];
-  tabService
+  tabDB
     .addTransaction(user, transaction)
     .then(() => sendUserdataForRendering(user));
 });
@@ -139,6 +137,6 @@ const sendUserSelectorContents = (currentUser?: string): void => {
 // Set up handlers
 new AddUserHandler().configure(
   mainWindow,
-  tabService,
+  tabDB,
   sendUserSelectorContents
 );

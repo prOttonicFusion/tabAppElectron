@@ -1,4 +1,5 @@
 import DataBaseAccess from "./data-access";
+import { getFormattedDate } from "./date-formatter";
 
 interface ILogEntry {
   name: string;
@@ -58,6 +59,17 @@ class TabDB {
       newBalance,
       name,
     ]);
+  }
+
+  async addTransaction(user: string, transaction: number): Promise<boolean> {
+    const userBalance = await this.getBalanceOfUser(user).catch(() => 0);
+    const newBalance = userBalance + transaction;
+    const timeStamp = getFormattedDate();
+
+    return (
+      this.updateUser(user, newBalance) &&
+      this.updateHistory(user, timeStamp, transaction)
+    );
   }
 
   trimUserHistory(name: string): Promise<boolean> {

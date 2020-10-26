@@ -1,11 +1,11 @@
 import { BrowserWindow, ipcMain, dialog } from "electron";
 import * as path from "path";
-import TabService from "../../tab-service";
+import TabDB from "../../tab-database";
 
 class AddUserHandler {
   configure(
     mainWindow: BrowserWindow,
-    tabService: TabService,
+    tabDB: TabDB,
     rerenderUserList: (arg0: string) => void
   ): void {
     let addUserWindow: BrowserWindow;
@@ -41,7 +41,7 @@ class AddUserHandler {
 
     ipcMain.on("accept-add-user", (event, args) => {
       const { user, initialBalance } = args[0];
-      tabService
+      tabDB
         .addUser(user, initialBalance)
         .then(() => {
           addUserWindow.close();
