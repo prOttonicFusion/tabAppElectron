@@ -1,0 +1,9 @@
+{
+    "user-selector-label": "User:",
+    "disabled-list-option": "-- Select --",
+    "balance-display-label": "Balance:",
+    "price-input-label": "Buy",
+    "recharge-input-label": "Deposit:",
+    "accept-button": "Accept",
+    "add-user-button": "Add user"
+}
