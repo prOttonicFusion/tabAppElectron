@@ -133,7 +133,7 @@ function getValidTransactionValueOrZero() {
 function getSelectedUser() {
   const selector = document.getElementById("user-selector");
   const selected = selector.options[selector.selectedIndex];
-  if (selected.id == "disabled-option") {
+  if (selected.id == "disabled-list-option") {
     return null;
   }
   return selected.text;
