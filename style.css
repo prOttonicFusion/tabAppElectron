@@ -78,6 +78,10 @@ button:active {
   justify-content: center;
 }
 
+.accept-user-container {
+  text-align: center;
+}
+
 .negative-balance {
   color: #ff0000;
 }
