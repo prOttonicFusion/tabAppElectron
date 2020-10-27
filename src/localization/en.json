@@ -5,5 +5,9 @@
     "price-input-label": "Buy",
     "recharge-input-label": "Deposit:",
     "accept-button": "Accept",
-    "add-user-button": "Add user"
+    "cancel-button": "Cancel",
+    "add-user-button": "Add user",
+    "add-user-title": "Add user",
+    "name-input-label": "Name:",
+    "initial-balance-input-label": "Balance:"
 }

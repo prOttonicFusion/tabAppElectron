@@ -1,4 +1,4 @@
-const translation = require("./sv.json");
+const translation = require("./src/localization/sv.json");
 
 document.getElementById("user-selector-label").innerHTML =
   translation["user-selector-label"];

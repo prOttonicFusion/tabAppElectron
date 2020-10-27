@@ -5,5 +5,9 @@
     "price-input-label": "Köp",
     "recharge-input-label": "Ladda:",
     "accept-button": "Godkänn",
-    "add-user-button": "Lägg till användare"
+    "cancel-button": "Ångra",
+    "add-user-button": "Lägg till användare",
+    "add-user-title": "Lägg till användare",
+    "name-input-label": "Namn:",
+    "initial-balance-input-label": "Saldo:"
 }
