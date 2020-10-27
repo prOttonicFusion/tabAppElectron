@@ -1,6 +1,5 @@
 const { ipcRenderer } = require("electron");
-
-const currencySymbol = "€";
+const i18n = require("./src/localization/translation-selector").translation;
 
 // Request main.ts to init balance display and user selector
 ipcRenderer.send("request-init-data");
@@ -14,7 +13,7 @@ ipcRenderer.on("render-balance", (event, args) => {
   } else {
     balanceDisplay.classList.remove("negative-balance");
   }
-  balanceDisplay.innerHTML = `${balance.toFixed(2)} ${currencySymbol}`;
+  balanceDisplay.innerHTML = balance.toFixed(2);
 });
 
 ipcRenderer.on("render-logs", (event, args) => {
@@ -24,7 +23,7 @@ ipcRenderer.on("render-logs", (event, args) => {
   for (let i = 0; i < logs.length; i++) {
     const entry = `<div class="log-entry">
         <span class="log-timestamp">${logs[i].timestamp}</span>
-        <span class="log-transaction">${logs[i].transact} ${currencySymbol}</span>
+        <span class="log-transaction">${logs[i].transact.toFixed(2)} ${i18n["currency-symbol"]}</span>
     </div>`;
     logContainer.innerHTML += entry;
   }

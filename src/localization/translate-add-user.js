@@ -1,4 +1,5 @@
-const translation = require("./src/localization/translation-selector.js").translation;
+const translation = require("./src/localization/translation-selector.js")
+  .translation;
 
 document.getElementById("add-user-title").innerHTML =
   translation["add-user-title"];
@@ -10,3 +11,8 @@ document.getElementById("accept-user-button").innerHTML =
   translation["accept-button"];
 document.getElementById("cancel-user-button").innerHTML =
   translation["cancel-button"];
+Array.from(document.getElementsByClassName("currency-symbol")).forEach(
+  (element) => {
+    element.innerHTML = translation["currency-symbol"];
+  }
+);

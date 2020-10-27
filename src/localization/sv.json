@@ -9,5 +9,6 @@
     "add-user-button": "Lägg till användare",
     "add-user-title": "Lägg till användare",
     "name-input-label": "Namn:",
-    "initial-balance-input-label": "Saldo:"
+    "initial-balance-input-label": "Saldo:",
+    "currency-symbol": "€"
 }

@@ -86,6 +86,10 @@ button:active {
   color: #ff0000;
 }
 
+#initial-balance-input {
+  width: 100px;
+}
+
 #window-left {
   width: 50%;
   margin: 10px;

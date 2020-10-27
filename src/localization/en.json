@@ -9,5 +9,6 @@
     "add-user-button": "Add user",
     "add-user-title": "Add user",
     "name-input-label": "Name:",
-    "initial-balance-input-label": "Balance:"
+    "initial-balance-input-label": "Balance:",
+    "currency-symbol": "€"
 }
