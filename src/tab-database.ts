@@ -23,24 +23,20 @@ class TabDB {
     return this.dataAccess.run(sqlQuery1) && this.dataAccess.run(sqlQuery2);
   }
 
-  addUser(name: string, initialBalance: number): Promise<boolean> {
-    return new Promise((resolve, reject) =>
-      this.dataAccess
-        .get(`SELECT * FROM tab WHERE name=?`, [name])
-        .then((row) => {
-          if (row) {
-            const err = "User already exists in database!";
-            reject(err);
-          } else {
-            resolve(
-              this.dataAccess.run(
-                "INSERT INTO tab (name, balance) VALUES (?, ?)",
-                [name, initialBalance]
-              )
-            );
-          }
-        })
-    );
+  async addUser(name: string, initialBalance: number): Promise<boolean> {
+    const row = await this.dataAccess.get(`SELECT * FROM tab WHERE name=?`, [
+      name,
+    ]);
+
+    if (row) {
+      const err = "User already exists in database!";
+      throw Error(err);
+    } else {
+      return this.dataAccess.run(
+        "INSERT INTO tab (name, balance) VALUES (?, ?)",
+        [name, initialBalance]
+      );
+    }
   }
 
   deleteUser(name: string): Promise<boolean> {
