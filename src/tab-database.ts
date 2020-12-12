@@ -117,20 +117,18 @@ class TabDB {
     }
   }
 
-  getLogsOfUser(user: string): Promise<ILogEntry[]> {
-    return new Promise((resolve, reject) =>
-      this.dataAccess
-        .getAll(`SELECT * FROM history WHERE name=?`, [user])
-        .then((rows) => {
-          if (rows) {
-            resolve(rows);
-          } else {
-            const err = "Could not get user logs";
-            console.log(err);
-            reject(err);
-          }
-        })
+  async getLogsOfUser(user: string): Promise<ILogEntry[]> {
+    const rows = await this.dataAccess.getAll(
+      `SELECT * FROM history WHERE name=?`,
+      [user]
     );
+    if (rows) {
+      return rows;
+    } else {
+      const err = "Could not get user logs";
+      console.log(err);
+      throw Error(err);
+    }
   }
 
   async exportDB(newDBPath: string): Promise<void> {
