@@ -97,14 +97,9 @@ class TabDB {
     );
   }
 
-  getUserNames(): Promise<string[]> {
-    return new Promise((resolve) =>
-      this.dataAccess
-        .getAll(`SELECT name FROM tab`)
-        .then((rows) =>
-          resolve(rows.map((r: { name: string }) => r.name).sort())
-        )
-    );
+  async getUserNames(): Promise<string[]> {
+    const rows = await this.dataAccess.getAll(`SELECT name FROM tab`);
+    return rows.map((r: { name: string }) => r.name).sort();
   }
 
   getBalanceOfUser(user: string): Promise<number> {
