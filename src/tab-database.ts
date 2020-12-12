@@ -102,20 +102,19 @@ class TabDB {
     return rows.map((r: { name: string }) => r.name).sort();
   }
 
-  getBalanceOfUser(user: string): Promise<number> {
-    return new Promise((resolve, reject) =>
-      this.dataAccess
-        .get(`SELECT balance FROM tab WHERE name=?`, [user])
-        .then((row) => {
-          if (row) {
-            resolve(row.balance);
-          } else {
-            const err = "Could not get user balance";
-            console.log(err);
-            reject(err);
-          }
-        })
+  async getBalanceOfUser(user: string): Promise<number> {
+    const row = await this.dataAccess.get(
+      `SELECT balance FROM tab WHERE name=?`,
+      [user]
     );
+
+    if (row) {
+      return row.balance;
+    } else {
+      const err = "Could not get user balance";
+      console.log(err);
+      throw Error(err);
+    }
   }
 
   getLogsOfUser(user: string): Promise<ILogEntry[]> {
