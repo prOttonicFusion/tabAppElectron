@@ -23,24 +23,20 @@ class TabDB {
     return this.dataAccess.run(sqlQuery1) && this.dataAccess.run(sqlQuery2);
   }
 
-  addUser(name: string, initialBalance: number): Promise<boolean> {
-    return new Promise((resolve, reject) =>
-      this.dataAccess
-        .get(`SELECT * FROM tab WHERE name=?`, [name])
-        .then((row) => {
-          if (row) {
-            const err = "User already exists in database!";
-            reject(err);
-          } else {
-            resolve(
-              this.dataAccess.run(
-                "INSERT INTO tab (name, balance) VALUES (?, ?)",
-                [name, initialBalance]
-              )
-            );
-          }
-        })
-    );
+  async addUser(name: string, initialBalance: number): Promise<boolean> {
+    const row = await this.dataAccess.get(`SELECT * FROM tab WHERE name=?`, [
+      name,
+    ]);
+
+    if (row) {
+      const err = "User already exists in database!";
+      throw Error(err);
+    } else {
+      return this.dataAccess.run(
+        "INSERT INTO tab (name, balance) VALUES (?, ?)",
+        [name, initialBalance]
+      );
+    }
   }
 
   deleteUser(name: string): Promise<boolean> {
@@ -72,25 +68,20 @@ class TabDB {
     );
   }
 
-  trimUserHistory(name: string): Promise<boolean> {
+  async trimUserHistory(name: string): Promise<boolean> {
     const maxHistoryItems = 50;
-    return new Promise((resolve, reject) =>
-      this.dataAccess
-        .get(`SELECT COUNT(*) from history WHERE name=?`, [name])
-        .then((result) => {
-          const historyEntryCount = result["COUNT(*)"];
-          if (historyEntryCount >= maxHistoryItems) {
-            const itemRemovalCount = historyEntryCount - maxHistoryItems;
-            this.dataAccess
-              .run(
-                `DELETE FROM history WHERE rowid IN (SELECT rowid FROM history WHERE name=? limit ?);`,
-                [name, itemRemovalCount]
-              )
-              .catch((err) => reject(err));
-          }
-          resolve(true);
-        })
+    const result = await this.dataAccess.get(
+      `SELECT COUNT(*) from history WHERE name=?`,
+      [name]
     );
+    const historyEntryCount = result["COUNT(*)"];
+    if (historyEntryCount >= maxHistoryItems) {
+      const itemRemovalCount = historyEntryCount - maxHistoryItems;
+      return this.dataAccess.run(
+        `DELETE FROM history WHERE rowid IN (SELECT rowid FROM history WHERE name=? limit ?);`,
+        [name, itemRemovalCount]
+      );
+    }
   }
 
   updateHistory(
@@ -106,46 +97,38 @@ class TabDB {
     );
   }
 
-  getUserNames(): Promise<string[]> {
-    return new Promise((resolve) =>
-      this.dataAccess
-        .getAll(`SELECT name FROM tab`)
-        .then((rows) =>
-          resolve(rows.map((r: { name: string }) => r.name).sort())
-        )
-    );
+  async getUserNames(): Promise<string[]> {
+    const rows = await this.dataAccess.getAll(`SELECT name FROM tab`);
+    return rows.map((r: { name: string }) => r.name).sort();
   }
 
-  getBalanceOfUser(user: string): Promise<number> {
-    return new Promise((resolve, reject) =>
-      this.dataAccess
-        .get(`SELECT balance FROM tab WHERE name=?`, [user])
-        .then((row) => {
-          if (row) {
-            resolve(row.balance);
-          } else {
-            const err = "Could not get user balance";
-            console.log(err);
-            reject(err);
-          }
-        })
+  async getBalanceOfUser(user: string): Promise<number> {
+    const row = await this.dataAccess.get(
+      `SELECT balance FROM tab WHERE name=?`,
+      [user]
     );
+
+    if (row) {
+      return row.balance;
+    } else {
+      const err = "Could not get user balance";
+      console.log(err);
+      throw Error(err);
+    }
   }
 
-  getLogsOfUser(user: string): Promise<ILogEntry[]> {
-    return new Promise((resolve, reject) =>
-      this.dataAccess
-        .getAll(`SELECT * FROM history WHERE name=?`, [user])
-        .then((rows) => {
-          if (rows) {
-            resolve(rows);
-          } else {
-            const err = "Could not get user logs";
-            console.log(err);
-            reject(err);
-          }
-        })
+  async getLogsOfUser(user: string): Promise<ILogEntry[]> {
+    const rows = await this.dataAccess.getAll(
+      `SELECT * FROM history WHERE name=?`,
+      [user]
     );
+    if (rows) {
+      return rows;
+    } else {
+      const err = "Could not get user logs";
+      console.log(err);
+      throw Error(err);
+    }
   }
 
   async exportDB(newDBPath: string): Promise<void> {
