@@ -6,9 +6,10 @@
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .js,.ts .",
-    "start": "npm run build && electron ./dist/main.js",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "start": "npm run build && electron .",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
   "repository": "https://github.com/prOttonicFusion/tabAppElectron",
   "keywords": [

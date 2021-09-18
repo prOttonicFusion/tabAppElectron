@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const { ipcRenderer } = require('electron')
-const i18n = require('./src/localization/translation-selector').translation
+import { ipcRenderer } from 'electron'
+import i18n from './src/localization/translation-selector'
 
 // Request main.ts to init balance display and user selector
 ipcRenderer.send('request-init-data')
@@ -99,13 +99,13 @@ function handleTransactionSubmit() {
     resetInputFields()
 }
 
-function populateUserDropdown(usersData) {
+function populateUserDropdown(usersData: any) {
     const userList = usersData.userList
-    const dropdown = document.getElementById('user-selector')
-    for (var i = dropdown.options.length - 1; i >= 1; i--) {
+    const dropdown = document.getElementById('user-selector') as HTMLSelectElement
+    for (let i = dropdown.options.length - 1; i >= 1; i--) {
         dropdown.remove(i)
     }
-    for (var j = 1; j <= userList.length; j++) {
+    for (let j = 1; j <= userList.length; j++) {
         dropdown.options.add(new Option(userList[j - 1]))
     }
     if (usersData.currentUser) {
@@ -116,12 +116,12 @@ function populateUserDropdown(usersData) {
 
 function getValidTransactionValueOrZero() {
     const price = Number(
-        document.getElementById('price-input').value.replace(',', '.')
+        (document.getElementById('price-input') as HTMLInputElement).value.replace(',', '.')
     )
     const deposit = Number(
-        document.getElementById('recharge-input').value.replace(',', '.')
+        (document.getElementById('recharge-input') as HTMLInputElement).value.replace(',', '.')
     )
-    var value = 0.0
+    let value = 0.0
     if (price) {
         value -= price
     }
@@ -132,7 +132,7 @@ function getValidTransactionValueOrZero() {
 }
 
 function getSelectedUser() {
-    const selector = document.getElementById('user-selector')
+    const selector = document.getElementById('user-selector') as HTMLSelectElement
     const selected = selector.options[selector.selectedIndex]
     if (selected.id == 'disabled-list-option') {
         return null
@@ -141,10 +141,10 @@ function getSelectedUser() {
 }
 
 function resetInputFields() {
-    document.getElementById('recharge-input').value = ''
-    document.getElementById('price-input').value = ''
+    (document.getElementById('recharge-input') as HTMLInputElement).value = '';
+    (document.getElementById('price-input') as HTMLInputElement).value = ''
 }
 
-function requestUserData(userName) {
+function requestUserData(userName: string) {
     ipcRenderer.send('request-userdata', userName)
 }

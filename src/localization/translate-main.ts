@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-const translation = require('./src/localization/translation-selector.js')
-    .translation
+import translation from './translation-selector'
 
 document.getElementById('user-selector-label').innerHTML =
   translation['user-selector-label']

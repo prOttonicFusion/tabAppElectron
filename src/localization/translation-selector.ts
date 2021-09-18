@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const settings = require('../../settings.json')
 
 const languageFilePath = `./${  settings.language  }.json`
-var translation
+let translation
 
 try {
     translation = require(languageFilePath)
@@ -12,4 +11,4 @@ try {
     translation = require('./en.json')
 }
 
-exports.translation = translation
+export default translation as any
