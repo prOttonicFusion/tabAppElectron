@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "lint": "eslint -c .eslintrc --ext .ts ./src",
+    "lint": "eslint -c .eslintrc --ext .js,.ts .",
     "start": "npm run build && electron ./dist/main.js"
   },
   "repository": "https://github.com/prOttonicFusion/tabAppElectron",
