@@ -10,7 +10,7 @@
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder",
     "postinstall": "electron-builder install-app-deps",
-    "clean": "rimraf ./src/**/*.js *.js"
+    "clean": "rimraf ./src/**/*.js ./src/*.js *.js"
   },
   "repository": "https://github.com/prOttonicFusion/tabAppElectron",
   "keywords": [
