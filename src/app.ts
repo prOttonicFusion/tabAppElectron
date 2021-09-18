@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 import { ipcRenderer } from 'electron'
-import i18n from './src/localization/translation-selector'
+import i18n from './localization/translation-selector'
 
 // Request main.ts to init balance display and user selector
 ipcRenderer.send('request-init-data')
