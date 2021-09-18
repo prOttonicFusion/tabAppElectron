@@ -19,6 +19,7 @@
     "@typescript-eslint/eslint-plugin": "^3.4.0",
     "@typescript-eslint/parser": "^3.4.0",
     "electron": "^9.4.0",
+    "electron-builder": "^22.11.7",
     "eslint": "^7.15.0",
     "eslint-config-prottonic": "^1.2.0",
     "typescript": "^3.9.5"
