@@ -1,9 +1,9 @@
 import { BrowserWindow, Menu, app, dialog, ipcMain } from 'electron'
 import * as path from 'path'
-import DataBaseAccess from './data-access'
-import TabDB from './tab-database'
-import menuTemplate from './menu-template'
-import AddUserHandler from './handlers/main/add-user-handler'
+import DataBaseAccess from './src/data-access'
+import TabDB from './src/tab-database'
+import menuTemplate from './src/menu-template'
+import AddUserHandler from './src/handlers/main/add-user-handler'
 
 let mainWindow: BrowserWindow
 
@@ -12,14 +12,14 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         height: 670,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, 'src', 'preload.js'),
             nodeIntegration: true,
         },
         width: 900,
     })
 
     // and load the index.html of the app.
-    mainWindow.loadFile(path.join(__dirname, '../index.html'))
+    mainWindow.loadFile(path.join(__dirname, 'src', 'index.html'))
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools()

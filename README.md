@@ -1,10 +1,11 @@
 # tabAppElectron
 A simple bar tab desktop app, written in node.js, using [electron.js](https://www.electronjs.org/) for windowing.
 
-## Installation
+## Distribution
 
 1. Make sure to have [node.js](https://nodejs.org) installed
 1. Install packages using `npm i`
+1. Run `npm run dist` to package app in distributable format
 
 
 ## Development

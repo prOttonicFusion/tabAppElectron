@@ -1,12 +1,16 @@
 {
-  "name": "tab-app",
-  "version": "1.0.0",
+  "name": "tabapp",
+  "version": "0.0.1",
   "description": "A simple bar tab desktop app",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .js,.ts .",
-    "start": "npm run build && electron ./dist/main.js"
+    "start": "npm run build && electron .",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "postinstall": "electron-builder install-app-deps",
+    "clean": "rimraf ./src/**/*.js ./src/*.js *.js"
   },
   "repository": "https://github.com/prOttonicFusion/tabAppElectron",
   "keywords": [
@@ -15,12 +19,20 @@
   ],
   "author": "prOttonicFusion",
   "license": "GPL-2.0",
+  "build": {
+    "appId": "com.tabapp.app",
+    "linux": {
+      "category": "Utility"
+    }
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.4.0",
     "@typescript-eslint/parser": "^3.4.0",
     "electron": "^9.4.0",
+    "electron-builder": "^22.11.7",
     "eslint": "^7.15.0",
     "eslint-config-prottonic": "^1.2.0",
+    "rimraf": "^3.0.2",
     "typescript": "^3.9.5"
   },
   "dependencies": {
