@@ -1,14 +1,16 @@
-const { ipcRenderer } = require("electron");
+/* eslint-disable @typescript-eslint/no-var-requires */
 
-document.getElementById("cancel-user-button").addEventListener("click", () => {
-  ipcRenderer.send("cancel-add-user");
-});
+const { ipcRenderer } = require('electron')
 
-document.getElementById("accept-user-button").addEventListener("click", () => {
-  let user = document.getElementById("name-input").value;
-  let initialBalance =
-    Number(document.getElementById("initial-balance-input").value) || 0;
-  if (user != "") {
-    ipcRenderer.send("accept-add-user", [{ user, initialBalance }]);
-  }
-});
+document.getElementById('cancel-user-button').addEventListener('click', () => {
+    ipcRenderer.send('cancel-add-user')
+})
+
+document.getElementById('accept-user-button').addEventListener('click', () => {
+    const user = document.getElementById('name-input').value
+    const initialBalance =
+    Number(document.getElementById('initial-balance-input').value) || 0
+    if (user != '') {
+        ipcRenderer.send('accept-add-user', [{ user, initialBalance }])
+    }
+})
