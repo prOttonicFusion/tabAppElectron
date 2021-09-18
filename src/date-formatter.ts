@@ -1,15 +1,5 @@
 export function getFormattedDate(): string {
-  const date = new Date();
-  const str =
-    date.getDate() +
-    "." +
-    (date.getMonth() + 1) +
-    "." +
-    date.getFullYear() +
-    " " +
-    date.getHours() +
-    ":" +
-    date.getMinutes();
+    const { getDate, getMonth, getFullYear, getHours, getMinutes } = new Date()
 
-  return str;
+    return `${getDate()}.${getMonth() + 1}.${getFullYear()} ${getHours()}:${getMinutes()}`
 }
