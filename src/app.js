@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-import { ipcRenderer } from 'electron'
-import i18n from './localization/translation-selector'
+const { ipcRenderer }  = require('electron')
+const i18n  = require('./localization/translation-selector').translation
 
 // Request main.ts to init balance display and user selector
 ipcRenderer.send('request-init-data')
@@ -99,9 +97,9 @@ function handleTransactionSubmit() {
     resetInputFields()
 }
 
-function populateUserDropdown(usersData: any) {
+function populateUserDropdown(usersData) {
     const userList = usersData.userList
-    const dropdown = document.getElementById('user-selector') as HTMLSelectElement
+    const dropdown = document.getElementById('user-selector')
     for (let i = dropdown.options.length - 1; i >= 1; i--) {
         dropdown.remove(i)
     }
@@ -116,10 +114,10 @@ function populateUserDropdown(usersData: any) {
 
 function getValidTransactionValueOrZero() {
     const price = Number(
-        (document.getElementById('price-input') as HTMLInputElement).value.replace(',', '.')
+        document.getElementById('price-input').value.replace(',', '.'),
     )
     const deposit = Number(
-        (document.getElementById('recharge-input') as HTMLInputElement).value.replace(',', '.')
+        document.getElementById('recharge-input').value.replace(',', '.'),
     )
     let value = 0.0
     if (price) {
@@ -132,7 +130,7 @@ function getValidTransactionValueOrZero() {
 }
 
 function getSelectedUser() {
-    const selector = document.getElementById('user-selector') as HTMLSelectElement
+    const selector = document.getElementById('user-selector')
     const selected = selector.options[selector.selectedIndex]
     if (selected.id == 'disabled-list-option') {
         return null
@@ -141,10 +139,10 @@ function getSelectedUser() {
 }
 
 function resetInputFields() {
-    (document.getElementById('recharge-input') as HTMLInputElement).value = '';
-    (document.getElementById('price-input') as HTMLInputElement).value = ''
+    document.getElementById('recharge-input').value = ''
+    document.getElementById('price-input').value = ''
 }
 
-function requestUserData(userName: string) {
+function requestUserData(userName) {
     ipcRenderer.send('request-userdata', userName)
 }

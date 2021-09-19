@@ -1,11 +1,11 @@
-import { BrowserWindow, Menu, app, dialog, ipcMain } from 'electron'
-import * as path from 'path'
-import DataBaseAccess from './src/data-access'
-import TabDB from './src/tab-database'
-import menuTemplate from './src/menu-template'
-import AddUserHandler from './src/handlers/main/add-user-handler'
+const { BrowserWindow, Menu, app, dialog, ipcMain } = require('electron')
+const path = require('path')
+const DataBaseAccess  = require('./src/services/data-access')
+const TabDB  = require('./src/tab-database')
+const menuTemplate  = require('./src/menu-template')
+const AddUserHandler = require('./src/handlers/add-user-handler')
 
-let mainWindow: BrowserWindow
+let mainWindow
 
 function createWindow() {
     // Create the browser window.
@@ -19,7 +19,7 @@ function createWindow() {
     })
 
     // and load the index.html of the app.
-    mainWindow.loadFile(path.join(__dirname, 'src', 'index.html'))
+    mainWindow.loadFile(path.join(__dirname, 'src', 'app.html'))
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
@@ -53,7 +53,7 @@ Menu.setApplicationMenu(menu)
 
 // Connect to database
 const dataAccess = new DataBaseAccess(
-    `${app.getPath('userData')}/database.sqlite3`
+    `${app.getPath('userData')}/database.sqlite3`,
 )
 const tabDB = new TabDB(dataAccess)
 tabDB.init()
@@ -101,11 +101,11 @@ ipcMain.on('delete-current-user', (event, args) => {
         .deleteUser(user)
         .then(() => sendUserSelectorContents())
         .catch(() =>
-            console.log(dialog.showErrorBox('Error', `Unable to delete user ${user}`))
+            console.log(dialog.showErrorBox('Error', `Unable to delete user ${user}`)),
         )
 })
 
-const sendUserdataForRendering = (username: string): void => {
+const sendUserdataForRendering = username => {
     tabDB
         .getBalanceOfUser(username)
         .then(balance => {
@@ -118,7 +118,7 @@ const sendUserdataForRendering = (username: string): void => {
     })
 }
 
-const sendUserSelectorContents = (currentUser?: string): void => {
+const sendUserSelectorContents = currentUser => {
     tabDB.getUserNames().then(userList => {
         console.log(userList)
         mainWindow.webContents.send('populate-user-selector', [
@@ -128,7 +128,7 @@ const sendUserSelectorContents = (currentUser?: string): void => {
             tabDB
                 .getBalanceOfUser(currentUser)
                 .then(balance =>
-                    mainWindow.webContents.send('render-balance', [{ balance }])
+                    mainWindow.webContents.send('render-balance', [{ balance }]),
                 )
         }
     })
@@ -138,5 +138,5 @@ const sendUserSelectorContents = (currentUser?: string): void => {
 new AddUserHandler().configure(
     mainWindow,
     tabDB,
-    sendUserSelectorContents
+    sendUserSelectorContents,
 )

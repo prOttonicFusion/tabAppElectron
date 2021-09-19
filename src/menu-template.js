@@ -1,24 +1,23 @@
-import {
+const {
     BrowserWindow,
     MenuItem,
-    MenuItemConstructorOptions,
     dialog,
     shell,
-} from 'electron'
+}  = require('electron')
 
-const menuTemplate: MenuItemConstructorOptions[] = [
+const menuTemplate = [
     {
         label: 'File',
         submenu: [
             {
                 label: 'Export database',
-                click(_menuItem: MenuItem, browserWindow: BrowserWindow): void {
+                click(_menuItem, browserWindow) {
                     exportDB(browserWindow)
                 },
             },
             {
                 label: 'Import database',
-                click(_menuItem: MenuItem, browserWindow: BrowserWindow): void {
+                click(_menuItem, browserWindow) {
                     importDB(browserWindow)
                 },
             },
@@ -34,7 +33,7 @@ const menuTemplate: MenuItemConstructorOptions[] = [
             { type: 'separator' },
             {
                 label: 'Delete User',
-                click(_menuItem: MenuItem, browserWindow: BrowserWindow): void {
+                click(_menuItem, browserWindow) {
                     deleteUser(browserWindow)
                 },
             },
@@ -60,7 +59,7 @@ const menuTemplate: MenuItemConstructorOptions[] = [
         submenu: [
             {
                 label: 'Learn more',
-                click(): void {
+                click() {
                     handleLearnMore()
                 },
             },
@@ -68,7 +67,7 @@ const menuTemplate: MenuItemConstructorOptions[] = [
     },
 ]
 
-const deleteUser = (browserWindow: BrowserWindow) => {
+const deleteUser = browserWindow => {
     const buttonIndex = dialog.showMessageBoxSync(browserWindow, {
         type: 'question',
         title: 'Delete Current User',
@@ -81,7 +80,7 @@ const deleteUser = (browserWindow: BrowserWindow) => {
     }
 }
 
-const exportDB = (browserWindow: BrowserWindow) => {
+const exportDB = browserWindow => {
     const newDBPath = dialog.showSaveDialogSync({
         title: 'Export database as:',
         filters: [
@@ -94,7 +93,7 @@ const exportDB = (browserWindow: BrowserWindow) => {
     browserWindow.webContents.send('export-database', [{ newDBPath }])
 }
 
-const importDB = (browserWindow: BrowserWindow) => {
+const importDB = browserWindow => {
     const newDBPath = dialog.showSaveDialogSync({
         title: 'Import database:',
         filters: [
@@ -111,4 +110,4 @@ const handleLearnMore = () => {
     shell.openExternal('https://github.com/prOttonicFusion/tabAppelectron')
 }
 
-export default menuTemplate
+module.exports = menuTemplate
