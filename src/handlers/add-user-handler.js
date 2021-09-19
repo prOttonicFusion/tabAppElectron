@@ -1,14 +1,9 @@
-import { BrowserWindow, dialog, ipcMain } from 'electron'
-import * as path from 'path'
-import TabDB from '../../tab-database'
+const { BrowserWindow, dialog, ipcMain }  = require('electron')
+const path  = require('path')
 
 class AddUserHandler {
-    configure(
-        mainWindow: BrowserWindow,
-        tabDB: TabDB,
-        rerenderUserList: (arg0: string) => void
-    ): void {
-        let addUserWindow: BrowserWindow
+    configure(mainWindow, tabDB, rerenderUserList) {
+        let addUserWindow
 
         ipcMain.on('add-user', () => {
             console.log('Pressed: add user')
@@ -24,7 +19,7 @@ class AddUserHandler {
                     },
                 })
 
-                addUserWindow.loadFile(path.join(__dirname, '../../../add-user.html'))
+                addUserWindow.loadFile(path.join(__dirname, '../add-user.html'))
 
                 // cleanup
                 addUserWindow.on('closed', () => {
@@ -52,4 +47,4 @@ class AddUserHandler {
     }
 }
 
-export default AddUserHandler
+module.exports = AddUserHandler

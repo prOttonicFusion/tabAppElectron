@@ -1,4 +1,4 @@
-import translation from './translation-selector'
+const { translation } = require('./translation-selector')
 
 document.getElementById('add-user-title').innerHTML =
   translation['add-user-title']
@@ -13,5 +13,5 @@ document.getElementById('cancel-user-button').innerHTML =
 Array.from(document.getElementsByClassName('currency-symbol')).forEach(
     element => {
         element.innerHTML = translation['currency-symbol']
-    }
+    },
 )
