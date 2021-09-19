@@ -22,8 +22,16 @@
   "build": {
     "appId": "com.tabapp.app",
     "linux": {
-      "category": "Utility"
+      "category": "Utility",
+      "icon": "./build/icons/linux"
+    },
+    "mac": {
+      "icon": "build/icons/mac/icon.icns"
+    },
+    "win": {
+      "icon": "build/icons/Icon.ico"
     }
+
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.4.0",
