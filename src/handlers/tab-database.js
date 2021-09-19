@@ -76,11 +76,7 @@ class TabDB {
         }
     }
 
-    updateHistory(
-        name,
-        timeStamp,
-        transaction,
-    ) {
+    updateHistory(name, timeStamp, transaction) {
         return (
             this.dataAccess.run(
                 'INSERT INTO history (name, timestamp, transact) VALUES (?, ?, ?)',

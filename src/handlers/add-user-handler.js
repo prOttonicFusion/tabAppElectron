@@ -2,11 +2,7 @@ const { BrowserWindow, dialog, ipcMain }  = require('electron')
 const path  = require('path')
 
 class AddUserHandler {
-    configure(
-        mainWindow,
-        tabDB,
-        rerenderUserList,
-    ) {
+    configure(mainWindow, tabDB, rerenderUserList) {
         let addUserWindow
 
         ipcMain.on('add-user', () => {
