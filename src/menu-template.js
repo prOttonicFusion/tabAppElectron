@@ -1,9 +1,4 @@
-const {
-    BrowserWindow,
-    MenuItem,
-    dialog,
-    shell,
-}  = require('electron')
+const { dialog, shell }  = require('electron')
 
 const menuTemplate = [
     {
