@@ -8,9 +8,11 @@ class TabDB {
 
     init() {
         const sqlQuery1 = `
-      CREATE TABLE IF NOT EXISTS tab (name TEXT type UNIQUE, balance REAL)`
+            CREATE TABLE IF NOT EXISTS tab (name TEXT type UNIQUE, balance REAL)
+        `
         const sqlQuery2 = `
-      CREATE TABLE IF NOT EXISTS history (transacton_id INTEGER PRIMARY KEY, name TEXT, timestamp TEXT, transact REAL)`
+            CREATE TABLE IF NOT EXISTS history (transacton_id INTEGER PRIMARY KEY, name TEXT, timestamp TEXT, transact REAL)
+        `
 
         return this.dataAccess.run(sqlQuery1) && this.dataAccess.run(sqlQuery2)
     }
@@ -34,7 +36,7 @@ class TabDB {
     deleteUser(name) {
         return (
             this.dataAccess.run('DELETE FROM tab WHERE name=?', [name]) &&
-      this.dataAccess.run('DELETE FROM history WHERE name=?', [name])
+            this.dataAccess.run('DELETE FROM history WHERE name=?', [name])
         )
     }
 
@@ -56,7 +58,7 @@ class TabDB {
 
         return (
             this.updateUser(user, newBalance) &&
-      this.updateHistory(user, timeStamp, transaction)
+            this.updateHistory(user, timeStamp, transaction)
         )
     }
 
@@ -139,11 +141,11 @@ class TabDB {
         let columns
         let values = ''
 
-        await tables.forEach(table => {
+        tables.forEach(table => {
             source.getAll(`SELECT * FROM ${table};`).then(rows => {
                 const row = rows[0]
                 const keys = Object.keys(row) // ['column1', 'column2']
-                columns = keys.toString() // 'column1,column2'
+                columns = keys.toString()     // 'column1,column2'
                 const rowValues = []
 
                 // Generate values and named parameters
