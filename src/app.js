@@ -88,7 +88,7 @@ document
         }
     })
 
-function handleTransactionSubmit() {
+const handleTransactionSubmit = () => {
     const transaction = getValidTransactionValueOrZero()
     const user = getSelectedUser()
     if (transaction && user) {
@@ -97,7 +97,7 @@ function handleTransactionSubmit() {
     resetInputFields()
 }
 
-function populateUserDropdown(usersData) {
+const populateUserDropdown = (usersData) => {
     const userList = usersData.userList
     const dropdown = document.getElementById('user-selector')
     for (let i = dropdown.options.length - 1; i >= 1; i--) {
@@ -112,7 +112,7 @@ function populateUserDropdown(usersData) {
     }
 }
 
-function getValidTransactionValueOrZero() {
+const getValidTransactionValueOrZero = () => {
     const price = Number(
         document.getElementById('price-input').value.replace(',', '.'),
     )
@@ -129,7 +129,7 @@ function getValidTransactionValueOrZero() {
     return value
 }
 
-function getSelectedUser() {
+const getSelectedUser = () => {
     const selector = document.getElementById('user-selector')
     const selected = selector.options[selector.selectedIndex]
     if (selected.id == 'disabled-list-option') {
@@ -138,11 +138,11 @@ function getSelectedUser() {
     return selected.text
 }
 
-function resetInputFields() {
+const resetInputFields = () => {
     document.getElementById('recharge-input').value = ''
     document.getElementById('price-input').value = ''
 }
 
-function requestUserData(userName) {
+const requestUserData = (userName) => {
     ipcRenderer.send('request-userdata', userName)
 }

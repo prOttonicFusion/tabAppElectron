@@ -8,7 +8,7 @@ const os = require('os')
 
 let mainWindow
 
-function createWindow() {
+const createWindow = () => {
     // Create the browser window.
     mainWindow = new BrowserWindow({
         height: 670,
