@@ -1,7 +1,7 @@
 const { BrowserWindow, Menu, app, dialog, ipcMain } = require('electron')
 const path = require('path')
 const DataBaseAccess  = require('./src/services/data-access')
-const TabDB  = require('./src/tab-database')
+const TabDB  = require('./src/handlers/tab-database')
 const menuTemplate  = require('./src/menu-template')
 const AddUserHandler = require('./src/handlers/add-user-handler')
 const os = require('os')

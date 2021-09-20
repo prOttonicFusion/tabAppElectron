@@ -1,7 +1,7 @@
-function getFormattedDate() {
-    const { getDate, getMonth, getFullYear, getHours, getMinutes } = new Date()
+const getFormattedDate = () => {
+    const date = new Date()
 
-    return `${getDate()}.${getMonth() + 1}.${getFullYear()} ${getHours()}:${getMinutes()}`
+    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
 }
 
 module.exports = getFormattedDate

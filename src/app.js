@@ -1,5 +1,5 @@
 const { ipcRenderer }  = require('electron')
-const i18n  = require('./localization/translation-selector').translation
+const i18n = require('./localization/translation-selector')
 
 // Request main.ts to init balance display and user selector
 ipcRenderer.send('request-init-data')
