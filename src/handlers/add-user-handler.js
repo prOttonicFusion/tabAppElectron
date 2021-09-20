@@ -11,7 +11,7 @@ class AddUserHandler {
             if (!addUserWindow) {
                 addUserWindow = new BrowserWindow({
                     width: 400,
-                    height: 400,
+                    height: 200,
                     // close with the main window
                     parent: mainWindow,
                     webPreferences: {
@@ -20,6 +20,8 @@ class AddUserHandler {
                 })
 
                 addUserWindow.loadFile(path.join(__dirname, '../add-user.html'))
+
+                addUserWindow.setMenu(null)
 
                 // cleanup
                 addUserWindow.on('closed', () => {

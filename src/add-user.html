@@ -19,7 +19,7 @@
       <div id="user-adder-container">
         <div class="user-name-container">
           <label id="name-input-label" for="name-input">Name:</label>
-          <input type="text" id="name-input" name="name-input" />
+          <input type="text" id="name-input" name="name-input" autofocus />
         </div>
         <div class="initial-balance-container">
           <label id="initial-balance-input-label" for="initial-balance-input">Balance:</label>
@@ -28,12 +28,11 @@
         <br>
         <div class="accept-user-container">
           <button id="accept-user-button" type="button">Accept</button>
-          <button id="cancel-user-button" type="button">Cancel</button>
+          <button id="cancel-user-button" class="cancel-button" type="button">Cancel</button>
         </div>
       </div>
     </div>
 
-    <!-- You can also require other files to run in this process -->
     <script src="./add-user.js"></script>
     <script src="./localization/translate-add-user.js"></script>
   </body>

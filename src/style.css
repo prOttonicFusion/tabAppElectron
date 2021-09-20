@@ -55,10 +55,21 @@ button:active {
   top: 1px;
 }
 
+.cancel-button {
+  background: linear-gradient(to bottom, #ce0000 5%, #880101 100%);
+  background-color: #b35959;
+}
+
+.cancel-button:hover {
+  background: linear-gradient(to bottom, #eb0101 5%, #a00101 100%);
+  background-color: #cf6767;
+}
+
 .main-container {
   display: flex;
   flex-wrap: nowrap;
   background-color: #31363b;
+  padding: 10px;
 }
 
 .form {
