@@ -4,6 +4,7 @@ const DataBaseAccess  = require('./src/services/data-access')
 const TabDB  = require('./src/tab-database')
 const menuTemplate  = require('./src/menu-template')
 const AddUserHandler = require('./src/handlers/add-user-handler')
+const os = require('os')
 
 let mainWindow
 
@@ -16,6 +17,8 @@ function createWindow() {
             nodeIntegration: true,
         },
         width: 900,
+        // https://github.com/electron-userland/electron-builder/issues/4617#issuecomment-623062713
+        icon: path.join('build', 'icons', os.platform() === 'win32' ? 'icon.ico' : 'linux/512x512.png'),
     })
 
     // and load the index.html of the app.
