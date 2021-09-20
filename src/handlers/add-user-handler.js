@@ -42,7 +42,7 @@ class AddUserHandler {
                     addUserWindow.close()
                     rerenderUserList(user)
                 })
-                .catch(err => console.log(dialog.showErrorBox('Error', err)))
+                .catch(err => dialog.showErrorBox('Error', err.message))
         })
     }
 }
