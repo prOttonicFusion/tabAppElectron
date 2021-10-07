@@ -110,6 +110,7 @@ button:active {
 }
 
 #balance-display {
+  font-family: monospace;
   margin-right: 10px;
 }
 
