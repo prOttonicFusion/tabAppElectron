@@ -29,7 +29,6 @@
     "win": {
       "icon": "build/icons/Icon.ico"
     }
-
   },
   "devDependencies": {
     "electron": "^9.4.0",

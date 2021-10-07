@@ -1,10 +1,13 @@
-const { BrowserWindow, Menu, app, dialog, ipcMain } = require('electron')
+const { BrowserWindow, Menu, app, dialog, ipcMain, nativeImage } = require('electron')
 const path = require('path')
 const DataBaseAccess  = require('./src/services/data-access')
 const TabDB  = require('./src/handlers/tab-database')
 const menuTemplate  = require('./src/menu-template')
 const AddUserHandler = require('./src/handlers/add-user-handler')
 const os = require('os')
+
+
+const iconPath = path.join('build', 'icons', os.platform() === 'win32' ? 'icon.ico' : 'linux/512x512.png')
 
 let mainWindow
 
@@ -18,7 +21,7 @@ const createWindow = () => {
         },
         width: 900,
         // https://github.com/electron-userland/electron-builder/issues/4617#issuecomment-623062713
-        icon: path.join('build', 'icons', os.platform() === 'win32' ? 'icon.ico' : 'linux/512x512.png'),
+        icon: nativeImage.createFromPath(iconPath),
     })
 
     // and load the index.html of the app.
