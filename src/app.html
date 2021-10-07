@@ -18,20 +18,22 @@
     <div class="main-container">
       <div id="window-left">
         <div class="form">
-          <span class="form-item">
+          <div class="form-item">
             <label id="user-selector-label" for="user-selector">User:</label>
-            <span>
-            <select name="user-selector" id="user-selector">
-              <option id="disabled-list-option" disabled selected value>-- Select --</option>
-            </select>
-          </span>
-          </span>
-          <span class="form-item">
-            <label id="balance-display-label" for="balance-display">Balance:</label>
-            <span id="balance-display"></span>
-            <span class="currency-symbol">€</span>
+            <div id="user-selector-container">
+              <select name="user-selector" id="user-selector">
+                <option id="disabled-list-option" disabled selected value>-- Select --</option>
+              </select>
           </div>
-        </span>
+        </div>
+          <div class="form-item">
+            <label id="balance-display-label" for="balance-display">Balance:</label>
+            <div id="balance-container">
+              <div id="balance-display"></div>
+              <div class="currency-symbol">€</div>
+            </div>
+          </div>
+        </div>
         <div class="logo-container">
           <img src="assets/logo.png" class="logo" width="250" />
         </div>
@@ -43,30 +45,30 @@
       </div>
       <div id="window-right">
         <div class="form">
-          <span class="form-item">
+          <div class="form-item">
             <label id="price-input-label" for="price-input">Buy:</label>
-            <span>
+            <div>
               <input
                 type="text"
                 id="price-input"
                 class="money-input"
                 name="price-input"
               />
-              <span class="currency-symbol">€</span>
-            </span>
-          </span>
-          <span class="form-item">
+              <div class="currency-symbol">€</div>
+            </div>
+          </div>
+          <div class="form-item">
             <label id="recharge-input-label" for="recharge-input">Deposit:</label>
-            <span>
+            <div>
               <input
                 type="text"
                 id="recharge-input"
                 class="money-input"
                 name="recharge-input"
               />
-              <span class="currency-symbol">€</span>
-            </span>
-          </span>
+              <div class="currency-symbol">€</div>
+            </div>
+          </div>
           <div class="accept-container button-container form-item">
             <button id="accept-button" type="button">Accept</button>
           </div>

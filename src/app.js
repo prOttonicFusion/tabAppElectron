@@ -22,8 +22,8 @@ ipcRenderer.on('render-logs', (event, args) => {
     const logs = args[0].logs.reverse()
     for (let i = 0; i < logs.length; i++) {
         const entry = `<div class="log-entry">
-        <span class="log-timestamp">${logs[i].timestamp}</span>
-        <span class="log-transaction">${logs[i].transact.toFixed(2)} ${i18n['currency-symbol']}</span>
+        <div class="log-timestamp">${logs[i].timestamp}</div>
+        <div class="log-transaction">${logs[i].transact.toFixed(2)} ${i18n['currency-symbol']}</div>
     </div>`
         logContainer.innerHTML += entry
     }
