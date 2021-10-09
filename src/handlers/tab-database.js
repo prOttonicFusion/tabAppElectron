@@ -1,5 +1,5 @@
 const DataBaseAccess = require('../services/data-access')
-const getFormattedDate  = require('../utils/date-formatter')
+const getFormattedDate  = require('../utils/date-formatter').getFormattedDate
 
 class TabDB {
     constructor(dataAccess) {

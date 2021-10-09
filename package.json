@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@types/sqlite3": "^3.1.6",
+    "date-fns": "^2.25.0",
     "sqlite3": "^5.0.0"
   }
 }

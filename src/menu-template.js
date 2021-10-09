@@ -1,4 +1,5 @@
 const { dialog, shell }  = require('electron')
+const formatToISO = require('./utils/date-formatter').formatToISO
 
 const menuTemplate = [
     {
@@ -83,10 +84,9 @@ const deleteUser = browserWindow => {
 
 const exportDB = browserWindow => {
     const currentDate = new Date()
-    const currentISODateString = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`
     const newDBPath = dialog.showSaveDialogSync({
         title: 'Export database as:',
-        defaultPath: `tabApp-database-${currentISODateString}.db`,
+        defaultPath: `tabApp-database-${formatToISO(currentDate)}.db`,
         filters: [
             {
                 name: 'Sqlite3 Database',
@@ -99,10 +99,9 @@ const exportDB = browserWindow => {
 
 const exportDBAsCSV = browserWindow => {
     const currentDate = new Date()
-    const currentISODateString = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`
     const csvFilePath = dialog.showSaveDialogSync({
         title: 'Export user balances as a CSV table:',
-        defaultPath: `tabApp-${currentISODateString}.csv`,
+        defaultPath: `tabApp-${formatToISO(currentDate)}.csv`,
         filters: [
             {
                 name: 'CSV File',
