@@ -6,6 +6,7 @@ const DataBaseAccess  = require('./src/services/data-access')
 const TabDB  = require('./src/handlers/tab-database')
 const menuTemplate  = require('./src/menu-template')
 const AddUserHandler = require('./src/handlers/add-user-handler')
+const formatToISOWithTimeStamp = require('./src/utils/date-formatter').formatToISOWithTimeStamp
 
 
 const iconPath = path.join('build', 'icons', os.platform() === 'win32' ? 'icon.ico' : 'linux/512x512.png')
@@ -60,11 +61,21 @@ Menu.setApplicationMenu(menu)
 
 // Connect to database
 const dataAccess = new DataBaseAccess(
-    `${app.getPath('userData')}/database.sqlite3`,
+    path.join(app.getPath('userData'), 'database.sqlite3')
 )
 const tabDB = new TabDB(dataAccess)
 tabDB.init()
 
+// Back up database
+const dbBackupDir = path.join(app.getPath('documents'), 'tabApp')
+
+if (!fs.existsSync(dbBackupDir)) {
+    fs.mkdirSync(dbBackupDir)
+}
+
+tabDB.exportDB(path.join(dbBackupDir, `tabApp-${formatToISOWithTimeStamp(new Date())}.db`))
+
+// Set up electron listeners
 ipcMain.on('accept-transaction', (event, args) => {
     console.log('Pressed: accept', args)
     const { user, transaction } = args[0]
