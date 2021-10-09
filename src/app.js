@@ -38,6 +38,10 @@ ipcRenderer.on('export-database', (event, args) => {
     ipcRenderer.send('export-database', args)
 })
 
+ipcRenderer.on('export-database-as-csv', (event, args) => {
+    ipcRenderer.send('export-database-as-csv', args)
+})
+
 ipcRenderer.on('import-database', (event, args) => {
     ipcRenderer.send('import-database', args)
 })
