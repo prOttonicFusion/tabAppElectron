@@ -5,6 +5,12 @@ const menuTemplate = [
         label: 'File',
         submenu: [
             {
+                label: 'Export user balances',
+                click(_menuItem, browserWindow) {
+                    exportDBAsCSV(browserWindow)
+                },
+            },
+            {
                 label: 'Export database',
                 click(_menuItem, browserWindow) {
                     exportDB(browserWindow)
@@ -76,8 +82,11 @@ const deleteUser = browserWindow => {
 }
 
 const exportDB = browserWindow => {
+    const currentDate = new Date()
+    const currentISODateString = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`
     const newDBPath = dialog.showSaveDialogSync({
         title: 'Export database as:',
+        defaultPath: `tabApp-database-${currentISODateString}.db`,
         filters: [
             {
                 name: 'Sqlite3 Database',
@@ -86,6 +95,22 @@ const exportDB = browserWindow => {
         ],
     })
     browserWindow.webContents.send('export-database', [{ newDBPath }])
+}
+
+const exportDBAsCSV = browserWindow => {
+    const currentDate = new Date()
+    const currentISODateString = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`
+    const csvFilePath = dialog.showSaveDialogSync({
+        title: 'Export user balances as a CSV table:',
+        defaultPath: `tabApp-${currentISODateString}.csv`,
+        filters: [
+            {
+                name: 'CSV File',
+                extensions: ['csv'],
+            },
+        ],
+    })
+    browserWindow.webContents.send('export-database-as-csv', [{ csvFilePath }])
 }
 
 const importDB = async browserWindow => {
