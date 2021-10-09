@@ -1,10 +1,11 @@
-const { BrowserWindow, Menu, app, dialog, ipcMain, nativeImage } = require('electron')
+const os = require('os')
+const fs = require('fs')
 const path = require('path')
+const { BrowserWindow, Menu, app, dialog, ipcMain, nativeImage } = require('electron')
 const DataBaseAccess  = require('./src/services/data-access')
 const TabDB  = require('./src/handlers/tab-database')
 const menuTemplate  = require('./src/menu-template')
 const AddUserHandler = require('./src/handlers/add-user-handler')
-const os = require('os')
 
 
 const iconPath = path.join('build', 'icons', os.platform() === 'win32' ? 'icon.ico' : 'linux/512x512.png')
@@ -89,6 +90,28 @@ ipcMain.on('export-database', (event, args) => {
             .then(() => console.log('Exported!'))
             .catch(err => console.log(err))
     }
+})
+
+ipcMain.on('export-database-as-csv', async (event, args) => {
+    const { csvFilePath } = args[0]
+    console.log(args)
+
+    if (!csvFilePath) {
+        return
+    }
+
+    console.log('Export path set!')
+    const users = await tabDB.getUsersWithBalance()
+
+    const writeStream = fs.createWriteStream(csvFilePath)
+
+    writeStream.write('name, balance\n')
+
+    users.forEach((u) => {
+        writeStream.write(`${u.name}, ${u.balance}\n`)
+    })
+
+    writeStream.end()
 })
 
 ipcMain.on('import-database', (event, args) => {

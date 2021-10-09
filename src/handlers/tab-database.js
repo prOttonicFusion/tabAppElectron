@@ -88,8 +88,12 @@ class TabDB {
     }
 
     async getUserNames() {
-        const rows = await this.dataAccess.getAll('SELECT name FROM tab')
-        return rows.map(r => r.name).sort()
+        const rows = await this.dataAccess.getAll('SELECT name FROM tab ORDER BY name')
+        return rows.map(r => r.name)
+    }
+
+    async getUsersWithBalance() {
+        return await this.dataAccess.getAll('SELECT name, balance FROM tab ORDER BY name')
     }
 
     async getBalanceOfUser(user) {
