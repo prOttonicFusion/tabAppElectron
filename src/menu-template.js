@@ -11,7 +11,7 @@ const menuTemplate = [
                 },
             },
             {
-                label: 'Import database',
+                label: 'Import database (requires restart)',
                 click(_menuItem, browserWindow) {
                     importDB(browserWindow)
                 },
@@ -88,8 +88,8 @@ const exportDB = browserWindow => {
     browserWindow.webContents.send('export-database', [{ newDBPath }])
 }
 
-const importDB = browserWindow => {
-    const newDBPath = dialog.showSaveDialogSync({
+const importDB = async browserWindow => {
+    const filePaths = dialog.showOpenDialogSync({
         title: 'Import database:',
         filters: [
             {
@@ -98,7 +98,11 @@ const importDB = browserWindow => {
             },
         ],
     })
-    browserWindow.webContents.send('import-database', [{ newDBPath }])
+
+    if (filePaths) {
+        const newDBPath = filePaths[0]
+        browserWindow.webContents.send('import-database', [{ newDBPath }])
+    }
 }
 
 const handleLearnMore = () => {
