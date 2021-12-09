@@ -7,8 +7,8 @@ const TabDB  = require('./src/handlers/tab-database')
 const menuTemplate  = require('./src/menu-template')
 const AddUserHandler = require('./src/handlers/add-user-handler')
 const formatToISOWithTimeStamp = require('./src/utils/date-formatter').formatToISOWithTimeStamp
+const { getOldestFile, getFilesWithExtension } = require('./src/utils/file-system')
 const settings = require('./settings.json')
-
 
 const iconPath = path.join('build', 'icons', os.platform() === 'win32' ? 'icon.ico' : 'linux/512x512.png')
 
@@ -67,7 +67,7 @@ const dataAccess = new DataBaseAccess(
 const tabDB = new TabDB(dataAccess)
 tabDB.init()
 
-// Back up database
+// Backup database
 if (settings.backupDbOnStartup) {
     const dbBackupDir = path.join(app.getPath('documents'), 'tabApp')
 
@@ -76,6 +76,15 @@ if (settings.backupDbOnStartup) {
     }
 
     tabDB.exportDB(path.join(dbBackupDir, `tabApp-${formatToISOWithTimeStamp(new Date())}.db`))
+
+    // Remove oldest backup if number of backups exceeds limit
+    const bupFiles = getFilesWithExtension(dbBackupDir, '.db')
+    if (settings.dbBackupsToKeep && bupFiles.length > settings.dbBackupsToKeep) {
+        const oldestDbFile = getOldestFile(bupFiles, dbBackupDir)
+        if (oldestDbFile) {
+            fs.unlinkSync(path.join(dbBackupDir, oldestDbFile))
+        }
+    }
 }
 
 // Set up electron listeners
