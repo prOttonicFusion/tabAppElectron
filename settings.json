@@ -1,3 +1,4 @@
 {
-    "language": "sv"
+    "language": "sv",
+    "backupDbOnStartup": true
 }

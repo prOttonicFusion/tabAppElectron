@@ -7,6 +7,7 @@ const TabDB  = require('./src/handlers/tab-database')
 const menuTemplate  = require('./src/menu-template')
 const AddUserHandler = require('./src/handlers/add-user-handler')
 const formatToISOWithTimeStamp = require('./src/utils/date-formatter').formatToISOWithTimeStamp
+const settings = require('./settings.json')
 
 
 const iconPath = path.join('build', 'icons', os.platform() === 'win32' ? 'icon.ico' : 'linux/512x512.png')
@@ -61,19 +62,21 @@ Menu.setApplicationMenu(menu)
 
 // Connect to database
 const dataAccess = new DataBaseAccess(
-    path.join(app.getPath('userData'), 'database.sqlite3')
+    path.join(app.getPath('userData'), 'database.sqlite3'),
 )
 const tabDB = new TabDB(dataAccess)
 tabDB.init()
 
 // Back up database
-const dbBackupDir = path.join(app.getPath('documents'), 'tabApp')
+if (settings.backupDbOnStartup) {
+    const dbBackupDir = path.join(app.getPath('documents'), 'tabApp')
 
-if (!fs.existsSync(dbBackupDir)) {
-    fs.mkdirSync(dbBackupDir)
+    if (!fs.existsSync(dbBackupDir)) {
+        fs.mkdirSync(dbBackupDir)
+    }
+
+    tabDB.exportDB(path.join(dbBackupDir, `tabApp-${formatToISOWithTimeStamp(new Date())}.db`))
 }
-
-tabDB.exportDB(path.join(dbBackupDir, `tabApp-${formatToISOWithTimeStamp(new Date())}.db`))
 
 // Set up electron listeners
 ipcMain.on('accept-transaction', (event, args) => {
@@ -118,7 +121,7 @@ ipcMain.on('export-database-as-csv', async (event, args) => {
 
     writeStream.write('name, balance\n')
 
-    users.forEach((u) => {
+    users.forEach(u => {
         writeStream.write(`${u.name}, ${u.balance}\n`)
     })
 
