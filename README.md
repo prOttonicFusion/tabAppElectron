@@ -1,5 +1,5 @@
 # tabAppElectron
-A simple bar tab desktop app, written in node.js, using [electron.js](https://www.electronjs.org/) for windowing.
+A simple bar tab desktop app, written in node.js, using [electron.js](https://www.electronjs.org/) for windowing and [SQLite](https://www.sqlite.org/) for storage
 
 ## Distribution
 
