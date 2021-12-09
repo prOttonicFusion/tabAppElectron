@@ -6,12 +6,12 @@ const getFormattedDate = () => {
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
 }
 
-const formatToISO = (date) => {
+const formatToISO = date => {
     return format(date, 'yyyy-MM-dd')
 }
 
-const formatToISOWithTimeStamp = (date) => {
-    return format(date, 'yyyy-MM-dd_hh-mm')
+const formatToISOWithTimeStamp = date => {
+    return format(date, 'yyyy-MM-dd_HH-mm')
 }
 
 
