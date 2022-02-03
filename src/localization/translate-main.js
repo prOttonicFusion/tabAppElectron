@@ -9,7 +9,7 @@ document.getElementById('recharge-input-label').innerHTML = translation['recharg
 document.getElementById('accept-button').innerHTML = translation['accept-button']
 
 Array.from(document.getElementsByClassName('currency-symbol')).forEach(
-    element => {
+    (element) => {
         element.innerHTML = translation['currency-symbol']
     },
 )

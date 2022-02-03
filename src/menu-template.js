@@ -69,7 +69,7 @@ const menuTemplate = [
     },
 ]
 
-const deleteUser = browserWindow => {
+const deleteUser = (browserWindow) => {
     const buttonIndex = dialog.showMessageBoxSync(browserWindow, {
         type: 'question',
         title: 'Delete Current User',
@@ -82,7 +82,7 @@ const deleteUser = browserWindow => {
     }
 }
 
-const exportDB = browserWindow => {
+const exportDB = (browserWindow) => {
     const currentDate = new Date()
     const newDBPath = dialog.showSaveDialogSync({
         title: 'Export database as:',
@@ -97,7 +97,7 @@ const exportDB = browserWindow => {
     browserWindow.webContents.send('export-database', [{ newDBPath }])
 }
 
-const exportDBAsCSV = browserWindow => {
+const exportDBAsCSV = (browserWindow) => {
     const currentDate = new Date()
     const csvFilePath = dialog.showSaveDialogSync({
         title: 'Export user balances as a CSV table:',
@@ -112,7 +112,7 @@ const exportDBAsCSV = browserWindow => {
     browserWindow.webContents.send('export-database-as-csv', [{ csvFilePath }])
 }
 
-const importDB = async browserWindow => {
+const importDB = async (browserWindow) => {
     const filePaths = dialog.showOpenDialogSync({
         title: 'Import database:',
         filters: [

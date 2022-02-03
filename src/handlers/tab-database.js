@@ -89,7 +89,7 @@ class TabDB {
 
     async getUserNames() {
         const rows = await this.dataAccess.getAll('SELECT name FROM tab ORDER BY name')
-        return rows.map(r => r.name)
+        return rows.map((r) => r.name)
     }
 
     async getUsersWithBalance() {
@@ -145,15 +145,15 @@ class TabDB {
         let columns
         let values = ''
 
-        tables.forEach(table => {
-            source.getAll(`SELECT * FROM ${table};`).then(rows => {
+        tables.forEach((table) => {
+            source.getAll(`SELECT * FROM ${table};`).then((rows) => {
                 const row = rows[0]
                 const keys = Object.keys(row) // ['column1', 'column2']
                 columns = keys.toString()     // 'column1,column2'
                 const rowValues = []
 
                 // Generate values and named parameters
-                rows.forEach(row => {
+                rows.forEach((row) => {
                     const valuesList = Object.values(row)
                     for (let i = 0; i < valuesList.length; i++) {
                         if (typeof valuesList[i] == 'string') {

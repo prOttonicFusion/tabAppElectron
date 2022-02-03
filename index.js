@@ -111,7 +111,7 @@ ipcMain.on('export-database', (event, args) => {
         tabDB
             .exportDB(newDBPath)
             .then(() => console.log('Exported!'))
-            .catch(err => console.log(err))
+            .catch((err) => console.log(err))
     }
 })
 
@@ -129,7 +129,7 @@ ipcMain.on('export-database-as-csv', async (event, args) => {
 
     writeStream.write('name, balance\n')
 
-    users.forEach(u => {
+    users.forEach((u) => {
         writeStream.write(`${u.name}, ${u.balance}\n`)
     })
 
@@ -142,7 +142,7 @@ ipcMain.on('import-database', (event, args) => {
         tabDB
             .importDB(newDBPath)
             .then(() => sendUserSelectorContents())
-            .catch(err => console.log(err))
+            .catch((err) => console.log(err))
     }
 })
 
@@ -156,21 +156,21 @@ ipcMain.on('delete-current-user', (event, args) => {
         )
 })
 
-const sendUserdataForRendering = username => {
+const sendUserdataForRendering = (username) => {
     tabDB
         .getBalanceOfUser(username)
-        .then(balance => {
+        .then((balance) => {
             mainWindow.webContents.send('render-balance', [{ balance }])
         })
         .catch(() => mainWindow.webContents.send('render-balance', 0))
 
-    tabDB.getLogsOfUser(username).then(logs => {
+    tabDB.getLogsOfUser(username).then((logs) => {
         mainWindow.webContents.send('render-logs', [{ logs }])
     })
 }
 
-const sendUserSelectorContents = currentUser => {
-    tabDB.getUserNames().then(userList => {
+const sendUserSelectorContents = (currentUser) => {
+    tabDB.getUserNames().then((userList) => {
         console.log(userList)
         mainWindow.webContents.send('populate-user-selector', [
             { userList, currentUser },
@@ -178,7 +178,7 @@ const sendUserSelectorContents = currentUser => {
         if (currentUser) {
             tabDB
                 .getBalanceOfUser(currentUser)
-                .then(balance =>
+                .then((balance) =>
                     mainWindow.webContents.send('render-balance', [{ balance }]),
                 )
         }

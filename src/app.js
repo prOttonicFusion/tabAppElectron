@@ -73,7 +73,7 @@ document
 // Register keyboard event listeners
 document
     .getElementById('recharge-input')
-    .addEventListener('keyup', event => {
+    .addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             handleTransactionSubmit()
             return true
@@ -82,7 +82,7 @@ document
 
 document
     .getElementById('price-input')
-    .addEventListener('keyup', event => {
+    .addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             handleTransactionSubmit()
             return true

@@ -7,7 +7,7 @@ document.getElementById('accept-user-button').innerHTML = translation['accept-bu
 document.getElementById('cancel-user-button').innerHTML = translation['cancel-button']
 
 Array.from(document.getElementsByClassName('currency-symbol')).forEach(
-    element => {
+    (element) => {
         element.innerHTML = translation['currency-symbol']
     },
 )

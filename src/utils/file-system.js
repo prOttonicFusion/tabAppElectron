@@ -3,7 +3,7 @@ const path = require('path')
 
 const getOldestFile = (files, rootPath) => {
     const out = []
-    files.forEach(file => {
+    files.forEach((file) => {
         const stats = fs.statSync(path.join(rootPath, file))
 
         if (stats.isFile()) {
@@ -19,7 +19,7 @@ const getOldestFile = (files, rootPath) => {
 }
 
 const getFilesWithExtension = (fileRootDir, extension) => {
-    return fs.readdirSync(fileRootDir).filter(file =>
+    return fs.readdirSync(fileRootDir).filter((file) =>
         path.extname(file) === extension,
     )
 }
