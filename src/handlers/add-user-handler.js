@@ -20,7 +20,7 @@ class AddUserHandler {
                     },
                 })
 
-                addUserWindow.loadFile(path.join(__dirname, '../add-user.html'))
+                addUserWindow.loadFile(path.join(__dirname, '..', 'add-user.html'))
 
                 addUserWindow.setMenu(null)
 
