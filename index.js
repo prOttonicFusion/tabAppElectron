@@ -29,7 +29,7 @@ const createWindow = () => {
     mainWindow.loadFile(path.join(__dirname, 'src', 'app.html'))
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -94,7 +94,6 @@ ipcMain.on('export-database', (event, args) => {
 
 ipcMain.on('export-database-as-csv', async (event, args) => {
     const { csvFilePath } = args[0]
-    console.log(args)
 
     if (!csvFilePath) {
         return
