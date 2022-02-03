@@ -1,3 +1,5 @@
 {
-    "language": "sv"
+    "language": "sv",
+    "backupDbOnStartup": true,
+    "dbBackupsToKeep": 10
 }

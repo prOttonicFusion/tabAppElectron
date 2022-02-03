@@ -6,7 +6,9 @@ const DataBaseAccess  = require('./src/services/data-access')
 const TabDB  = require('./src/handlers/tab-database')
 const menuTemplate  = require('./src/menu-template')
 const AddUserHandler = require('./src/handlers/add-user-handler')
-
+const formatToISOWithTimeStamp = require('./src/utils/date-formatter').formatToISOWithTimeStamp
+const { getOldestFile, getFilesWithExtension } = require('./src/utils/file-system')
+const settings = require('./settings.json')
 
 const iconPath = path.join('build', 'icons', os.platform() === 'win32' ? 'icon.ico' : 'linux/512x512.png')
 
@@ -60,11 +62,32 @@ Menu.setApplicationMenu(menu)
 
 // Connect to database
 const dataAccess = new DataBaseAccess(
-    `${app.getPath('userData')}/database.sqlite3`,
+    path.join(app.getPath('userData'), 'database.sqlite3'),
 )
 const tabDB = new TabDB(dataAccess)
 tabDB.init()
 
+// Backup database
+if (settings.backupDbOnStartup) {
+    const dbBackupDir = path.join(app.getPath('documents'), 'tabApp')
+
+    if (!fs.existsSync(dbBackupDir)) {
+        fs.mkdirSync(dbBackupDir)
+    }
+
+    tabDB.exportDB(path.join(dbBackupDir, `tabApp-${formatToISOWithTimeStamp(new Date())}.db`))
+
+    // Remove oldest backup if number of backups exceeds limit
+    const bupFiles = getFilesWithExtension(dbBackupDir, '.db')
+    if (settings.dbBackupsToKeep && bupFiles.length > settings.dbBackupsToKeep) {
+        const oldestDbFile = getOldestFile(bupFiles, dbBackupDir)
+        if (oldestDbFile) {
+            fs.unlinkSync(path.join(dbBackupDir, oldestDbFile))
+        }
+    }
+}
+
+// Set up electron listeners
 ipcMain.on('accept-transaction', (event, args) => {
     console.log('Pressed: accept', args)
     const { user, transaction } = args[0]
@@ -106,7 +129,7 @@ ipcMain.on('export-database-as-csv', async (event, args) => {
 
     writeStream.write('name, balance\n')
 
-    users.forEach((u) => {
+    users.forEach(u => {
         writeStream.write(`${u.name}, ${u.balance}\n`)
     })
 
