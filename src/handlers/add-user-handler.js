@@ -1,5 +1,5 @@
-const { BrowserWindow, dialog, ipcMain }  = require('electron')
-const path  = require('path')
+const { BrowserWindow, dialog, ipcMain } = require('electron')
+const path = require('path')
 
 class AddUserHandler {
     configure(mainWindow, tabDB, rerenderUserList) {
@@ -15,11 +15,12 @@ class AddUserHandler {
                     // close with the main window
                     parent: mainWindow,
                     webPreferences: {
-                        nodeIntegration: true,
+                        nodeIntegration: false,
+                        preload: path.join(__dirname, '..', 'preload.js'),
                     },
                 })
 
-                addUserWindow.loadFile(path.join(__dirname, '../add-user.html'))
+                addUserWindow.loadFile(path.join(__dirname, '..', 'add-user.html'))
 
                 addUserWindow.setMenu(null)
 

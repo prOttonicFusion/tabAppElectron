@@ -136,6 +136,8 @@ button:active {
   height: 50%;
   width: 300px;
   margin-top: 35px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .log-entry {
