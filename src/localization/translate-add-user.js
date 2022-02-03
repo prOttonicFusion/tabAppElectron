@@ -1,4 +1,4 @@
-const translation = require('./localization/translation-selector')
+const translation = window.api.i18n
 
 document.getElementById('add-user-title').innerHTML = translation['add-user-title']
 document.getElementById('name-input-label').innerHTML = translation['name-input-label']

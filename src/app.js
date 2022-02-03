@@ -1,11 +1,8 @@
-const { ipcRenderer }  = require('electron')
-const i18n = require('./localization/translation-selector')
-
 // Request main.ts to init balance display and user selector
-ipcRenderer.send('request-init-data')
+window.api.send('request-init-data')
 
 // If new user data is sent from main.ts
-ipcRenderer.on('render-balance', (event, args) => {
+window.api.receive('render-balance', (args) => {
     const balanceDisplay = document.getElementById('balance-display')
     const balance = args[0].balance
     if (balance < 0) {
@@ -16,41 +13,41 @@ ipcRenderer.on('render-balance', (event, args) => {
     balanceDisplay.innerHTML = balance.toFixed(2)
 })
 
-ipcRenderer.on('render-logs', (event, args) => {
+window.api.receive('render-logs', (args) => {
     const logContainer = document.getElementById('log-container')
     logContainer.innerHTML = null
     const logs = args[0].logs.reverse()
     for (let i = 0; i < logs.length; i++) {
         const entry = `<div class="log-entry">
         <div class="log-timestamp">${logs[i].timestamp}</div>
-        <div class="log-transaction">${logs[i].transact.toFixed(2)} ${i18n['currency-symbol']}</div>
+        <div class="log-transaction">${logs[i].transact.toFixed(2)} ${window.api.i18n['currency-symbol']}</div>
     </div>`
         logContainer.innerHTML += entry
     }
 })
 
 // Generate user selector dropdown
-ipcRenderer.on('populate-user-selector', (event, args) => {
+window.api.receive('populate-user-selector', (args) => {
     populateUserDropdown(args[0])
 })
 
-ipcRenderer.on('export-database', (event, args) => {
-    ipcRenderer.send('export-database', args)
+window.api.receive('export-database', (args) => {
+    window.api.send('export-database', args)
 })
 
-ipcRenderer.on('export-database-as-csv', (event, args) => {
-    ipcRenderer.send('export-database-as-csv', args)
+window.api.receive('export-database-as-csv', (args) => {
+    window.api.send('export-database-as-csv', args)
 })
 
-ipcRenderer.on('import-database', (event, args) => {
-    ipcRenderer.send('import-database', args)
+window.api.receive('import-database', (args) => {
+    window.api.send('import-database', args)
 })
 
 // Handle user deletion
-ipcRenderer.on('delete-current-user', () => {
+window.api.receive('delete-current-user', () => {
     const user = getSelectedUser()
     if (user) {
-        ipcRenderer.send('delete-current-user', [{ user }])
+        window.api.send('delete-current-user', { user })
     }
 })
 
@@ -65,7 +62,7 @@ document.getElementById('user-selector').addEventListener('click', () => {
 
 // Handle clicks on add-user button
 document.getElementById('add-user-button').addEventListener('click', () => {
-    ipcRenderer.send('add-user')
+    window.api.send('add-user')
 })
 
 // Handle clicks on button for accepting transactions
@@ -96,7 +93,7 @@ const handleTransactionSubmit = () => {
     const transaction = getValidTransactionValueOrZero()
     const user = getSelectedUser()
     if (transaction && user) {
-        ipcRenderer.send('accept-transaction', [{ user, transaction }])
+        window.api.send('accept-transaction', [{ user, transaction }])
     }
     resetInputFields()
 }
@@ -148,5 +145,5 @@ const resetInputFields = () => {
 }
 
 const requestUserData = (userName) => {
-    ipcRenderer.send('request-userdata', userName)
+    window.api.send('request-userdata', userName)
 }
