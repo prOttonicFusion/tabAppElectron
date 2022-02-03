@@ -3,16 +3,18 @@ A simple bar tab desktop app, written in node.js, using [electron.js](https://ww
 
 <img src="./docs/assets/screenshot.png" width="500">
 
-## Distribution
-
-1. Make sure to have [node.js](https://nodejs.org) installed
-1. Install packages using `npm i`
-1. Run `npm run dist` to package app in distributable format
-
-
 ## Development
+
+### Prerequisites
+
+- [node](https://nodejs.org)
+
+### Run in dev mode
 
 1. Install packages using `npm i`
 1. Launch app using `npm start` 
 
-The language and a few other settings can be currently only changed manually from the `settings.json`.
+### Distribution
+
+1. Install packages using `npm i`
+1. Run `npm run dist` to package app in distributable format
