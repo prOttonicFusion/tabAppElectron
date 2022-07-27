@@ -21,6 +21,6 @@ contextBridge.exposeInMainWorld(
         },
         i18n,
         version: pkg?.version ?? '?.?.?',
-        author: pkg?.author ?? 'prOttonicFusion',
+        author: pkg?.author?.name ?? 'prOttonicFusion',
     },
 )
