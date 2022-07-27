@@ -10,5 +10,7 @@
     "add-user-title": "Lägg till användare",
     "name-input-label": "Namn:",
     "initial-balance-input-label": "Saldo:",
-    "currency-symbol": "€"
+    "currency-symbol": "€",
+    "author": "©",
+    "more-details": "Mera info"
 }

@@ -1,7 +1,7 @@
 const os = require('os')
 const fs = require('fs')
 const path = require('path')
-const { BrowserWindow, Menu, app, dialog, ipcMain, nativeImage } = require('electron')
+const { BrowserWindow, Menu, app, dialog, ipcMain, nativeImage, shell } = require('electron')
 const DataBaseAccess  = require('./src/services/data-access')
 const TabDB  = require('./src/handlers/tab-database')
 const menuTemplate  = require('./src/menu-template')
@@ -88,7 +88,7 @@ if (settings.backupDbOnStartup) {
 }
 
 // Set up electron listeners
-ipcMain.on('accept-transaction', (event, args) => {
+ipcMain.on('accept-transaction', (_event, args) => {
     console.log('Pressed: accept', args)
     const { user, transaction } = args[0]
     tabDB
@@ -96,7 +96,7 @@ ipcMain.on('accept-transaction', (event, args) => {
         .then(() => sendUserdataForRendering(user))
 })
 
-ipcMain.on('request-userdata', (event, username) => {
+ipcMain.on('request-userdata', (_event, username) => {
     sendUserdataForRendering(username)
 })
 
@@ -104,7 +104,7 @@ ipcMain.on('request-init-data', () => {
     sendUserSelectorContents()
 })
 
-ipcMain.on('export-database', (event, args) => {
+ipcMain.on('export-database', (_event, args) => {
     const { newDBPath } = args[0]
     if (newDBPath) {
         console.log('Export path set!')
@@ -115,7 +115,7 @@ ipcMain.on('export-database', (event, args) => {
     }
 })
 
-ipcMain.on('export-database-as-csv', async (event, args) => {
+ipcMain.on('export-database-as-csv', async (_event, args) => {
     const { csvFilePath } = args[0]
 
     if (!csvFilePath) {
@@ -136,7 +136,7 @@ ipcMain.on('export-database-as-csv', async (event, args) => {
     writeStream.end()
 })
 
-ipcMain.on('import-database', (event, args) => {
+ipcMain.on('import-database', (_event, args) => {
     const { newDBPath } = args[0]
     if (newDBPath) {
         tabDB
@@ -146,7 +146,7 @@ ipcMain.on('import-database', (event, args) => {
     }
 })
 
-ipcMain.on('delete-current-user', (event, args) => {
+ipcMain.on('delete-current-user', (_event, args) => {
     const { user } = args
     tabDB
         .deleteUser(user)
@@ -154,6 +154,12 @@ ipcMain.on('delete-current-user', (event, args) => {
         .catch(() =>
             console.log(dialog.showErrorBox('Error', `Unable to delete user ${user}`)),
         )
+})
+
+ipcMain.on('navigate-in-browser', (_event, args) => {
+    if (args[0]) {
+        shell.openExternal(args[0])
+    }
 })
 
 const sendUserdataForRendering = (username) => {

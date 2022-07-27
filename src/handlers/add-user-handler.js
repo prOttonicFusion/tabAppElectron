@@ -8,27 +8,32 @@ class AddUserHandler {
         ipcMain.on('add-user', () => {
             console.log('Pressed: add user')
 
-            if (!addUserWindow) {
-                addUserWindow = new BrowserWindow({
-                    width: 400,
-                    height: 280,
-                    // close with the main window
-                    parent: mainWindow,
-                    webPreferences: {
-                        nodeIntegration: false,
-                        preload: path.join(__dirname, '..', 'preload.js'),
-                    },
-                })
-
-                addUserWindow.loadFile(path.join(__dirname, '..', 'add-user.html'))
-
-                addUserWindow.setMenu(null)
-
-                // cleanup
-                addUserWindow.on('closed', () => {
-                    addUserWindow = null
-                })
+            if (addUserWindow) {
+                addUserWindow.focus()
+                return
             }
+
+            addUserWindow = new BrowserWindow({
+                width: 400,
+                height: 280,
+                // close with the main window
+                parent: mainWindow,
+                webPreferences: {
+                    nodeIntegration: false,
+                    preload: path.join(__dirname, '..', 'preload.js'),
+                },
+                minimizable: false,
+                fullscreenable: false,
+            })
+
+            addUserWindow.loadFile(path.join(__dirname, '..', 'add-user.html'))
+
+            addUserWindow.setMenu(null)
+
+            // cleanup
+            addUserWindow.on('closed', () => {
+                addUserWindow = null
+            })
         })
 
         ipcMain.on('cancel-add-user', () => {

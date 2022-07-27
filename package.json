@@ -7,8 +7,7 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "postinstall": "electron-builder install-app-deps",
-    "clean": "rimraf ./src/**/*.js ./src/*.js *.js"
+    "postinstall": "electron-builder install-app-deps"
   },
   "repository": "https://github.com/prOttonicFusion/tabAppElectron",
   "keywords": [

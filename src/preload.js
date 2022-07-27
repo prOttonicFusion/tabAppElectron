@@ -7,6 +7,7 @@ const {
 } = require('electron')
 
 const i18n = require('./localization/translation-selector')
+const pkg = require('../package.json')
 
 // Expose methods that allow the renderer process to use
 // ipcRenderer without exposing the entire object
@@ -16,8 +17,10 @@ contextBridge.exposeInMainWorld(
             ipcRenderer.send(channel, data)
         },
         receive: (channel, func) => {
-            ipcRenderer.on(channel, (event, args) => func(args))
+            ipcRenderer.on(channel, (_event, args) => func(args))
         },
         i18n,
+        version: pkg?.version ?? '?.?.?',
+        author: pkg?.author ?? 'prOttonicFusion',
     },
 )

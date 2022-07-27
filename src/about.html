@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title id="add-user-title">About</title>
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div id="about-container">
+        <h1>tabApp</h1>
+        <p id="app-version">v?.?.?</p>
+        <div class="author-container">
+          <p id="author">(c)</p>
+          <p>prOttonicFusion</p>
+        </div>
+        
+        <a id="more-details">More details</a> 
+      </div>
+    </div>
+
+    <script src="./about.js"></script>
+    <script src="./localization/translate-about.js"></script>
+  </body>
+</html>

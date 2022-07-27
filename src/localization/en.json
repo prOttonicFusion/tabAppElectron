@@ -10,5 +10,7 @@
     "add-user-title": "Add user",
     "name-input-label": "Name:",
     "initial-balance-input-label": "Balance:",
-    "currency-symbol": "€"
+    "currency-symbol": "€",
+    "author": "©",
+    "more-details": "More details"
 }

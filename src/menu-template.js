@@ -1,5 +1,6 @@
-const { dialog, shell }  = require('electron')
+const { dialog, BrowserWindow }  = require('electron')
 const formatToISO = require('./utils/date-formatter').formatToISO
+const path = require('path')
 
 const menuTemplate = [
     {
@@ -7,19 +8,19 @@ const menuTemplate = [
         submenu: [
             {
                 label: 'Export user balances',
-                click(_menuItem, browserWindow) {
+                click: (_menuItem, browserWindow) => {
                     exportDBAsCSV(browserWindow)
                 },
             },
             {
                 label: 'Export database',
-                click(_menuItem, browserWindow) {
+                click: (_menuItem, browserWindow) => {
                     exportDB(browserWindow)
                 },
             },
             {
                 label: 'Import database (requires restart)',
-                click(_menuItem, browserWindow) {
+                click: (_menuItem, browserWindow) => {
                     importDB(browserWindow)
                 },
             },
@@ -35,7 +36,7 @@ const menuTemplate = [
             { type: 'separator' },
             {
                 label: 'Delete User',
-                click(_menuItem, browserWindow) {
+                click: (_menuItem, browserWindow) => {
                     deleteUser(browserWindow)
                 },
             },
@@ -60,9 +61,9 @@ const menuTemplate = [
         role: 'help',
         submenu: [
             {
-                label: 'Learn more',
-                click() {
-                    handleLearnMore()
+                label: 'About',
+                click: () => {
+                    handleAbout()
                 },
             },
         ],
@@ -129,8 +130,33 @@ const importDB = async (browserWindow) => {
     }
 }
 
-const handleLearnMore = () => {
-    shell.openExternal('https://github.com/prOttonicFusion/tabAppelectron')
+const handleAbout = () => {
+    let aboutWindow
+
+    if (aboutWindow) {
+        aboutWindow.focus()
+        return
+    }
+
+    aboutWindow = new BrowserWindow({
+        width: 400,
+        height: 280,
+        webPreferences: {
+            nodeIntegration: false,
+            preload: path.join(__dirname, 'preload.js'),
+        },
+        minimizable: false,
+        fullscreenable: false,
+    })
+
+    aboutWindow.loadFile(path.join(__dirname, 'about.html'))
+
+    aboutWindow.setMenu(null)
+
+    // cleanup
+    aboutWindow.on('closed', () => {
+        aboutWindow = null
+    })
 }
 
 module.exports = menuTemplate
