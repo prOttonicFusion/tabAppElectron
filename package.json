@@ -45,6 +45,6 @@
   },
   "dependencies": {
     "date-fns": "^2.29.1",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.10"
   }
 }
