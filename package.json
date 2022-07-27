@@ -1,6 +1,6 @@
 {
   "name": "tabapp",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A simple bar tab desktop app",
   "scripts": {
     "lint": "eslint -c .eslintrc --ext .js,.ts .",
@@ -12,7 +12,7 @@
   "repository": "https://github.com/prOttonicFusion/tabAppElectron",
   "keywords": [
     "Electron",
-    "typescript"
+    "pub-tab"
   ],
   "author": {
     "name": "Otto Lindblom (prOttonicFusion)",
