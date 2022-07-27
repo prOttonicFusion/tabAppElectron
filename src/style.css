@@ -90,7 +90,19 @@ button:active {
 }
 
 .accept-user-container {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin-top: 25px;
+}
+
+#user-adder-container {
+  width: 100%;
+}
+
+.accept-user-container .cancel-button {
+  margin-left: 25px;
 }
 
 .negative-balance {
@@ -99,6 +111,17 @@ button:active {
 
 .currency-symbol {
   display: inline;
+}
+
+.user-name-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.initial-balance-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
 }
 
 #initial-balance-input {
@@ -158,12 +181,6 @@ button:active {
   width: 100%;
 }
 
-.log-timestamp {
-}
-
-.log-transaction {
-}
-
 .logo-container {
   width: 70%;
   max-width: 350px;
@@ -175,8 +192,3 @@ button:active {
   margin-left: auto;
 }
 
-.add-user-container {
-}
-
-.accept-container {
-}

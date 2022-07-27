@@ -11,7 +11,7 @@ class AddUserHandler {
             if (!addUserWindow) {
                 addUserWindow = new BrowserWindow({
                     width: 400,
-                    height: 200,
+                    height: 280,
                     // close with the main window
                     parent: mainWindow,
                     webPreferences: {
