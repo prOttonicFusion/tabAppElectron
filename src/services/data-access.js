@@ -2,12 +2,9 @@ const { Database } = require('sqlite3')
 
 class DataBaseAccess {
     constructor(dbFilePath) {
-        console.log(dbFilePath)
         this.db = new Database(dbFilePath, (err) => {
             if (err) {
-                console.log('Could not connect to database', err)
-            } else {
-                console.log('Connected to database')
+                console.warn('Could not connect to database', err)
             }
         })
     }
@@ -16,8 +13,8 @@ class DataBaseAccess {
         return new Promise((resolve, reject) => {
             this.db.run(sqlQuery, params, (err) => {
                 if (err) {
-                    console.log(`Error running SQL query ${  sqlQuery}`)
-                    console.log(err)
+                    console.warn(`Error running SQL query ${  sqlQuery}`)
+                    console.warn(err)
                     reject(err)
                 } else {
                     resolve(true)
@@ -30,8 +27,8 @@ class DataBaseAccess {
         return new Promise((resolve, reject) => {
             this.db.get(sqlQuery, params, (err, result) => {
                 if (err) {
-                    console.log(`Error running SQL query: ${  sqlQuery}`)
-                    console.log(err)
+                    console.warn(`Error running SQL query: ${  sqlQuery}`)
+                    console.warn(err)
                     reject(err)
                 } else {
                     resolve(result)
@@ -44,8 +41,8 @@ class DataBaseAccess {
         return new Promise((resolve, reject) => {
             this.db.all(sqlQuery, params, (err, rows) => {
                 if (err) {
-                    console.log(`Error running SQL query: ${  sqlQuery}`)
-                    console.log(err)
+                    console.warn(`Error running SQL query: ${  sqlQuery}`)
+                    console.warn(err)
                     reject(err)
                 } else {
                     resolve(rows)

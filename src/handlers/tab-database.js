@@ -105,9 +105,7 @@ class TabDB {
         if (row) {
             return row.balance
         } else {
-            const err = 'Could not get user balance'
-            console.log(err)
-            throw Error(err)
+            throw Error('Could not get user balance')
         }
     }
 
@@ -119,9 +117,7 @@ class TabDB {
         if (rows) {
             return rows
         } else {
-            const err = 'Could not get user logs'
-            console.log(err)
-            throw Error(err)
+            throw Error('Could not get user logs')
         }
     }
 

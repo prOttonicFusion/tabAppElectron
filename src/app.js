@@ -54,7 +54,6 @@ window.api.receive('delete-current-user', () => {
 // Handle user selections
 document.getElementById('user-selector').addEventListener('click', () => {
     const user = getSelectedUser()
-    console.log('Selected: ', user)
     if (user) {
         requestUserData(user)
     }
@@ -108,7 +107,6 @@ const populateUserDropdown = (usersData) => {
         dropdown.options.add(new Option(userList[j - 1]))
     }
     if (usersData.currentUser) {
-        console.log(usersData)
         dropdown.value = usersData.currentUser
     }
 }

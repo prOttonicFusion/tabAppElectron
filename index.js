@@ -89,7 +89,6 @@ if (settings.backupDbOnStartup) {
 
 // Set up electron listeners
 ipcMain.on('accept-transaction', (_event, args) => {
-    console.log('Pressed: accept', args)
     const { user, transaction } = args[0]
     tabDB
         .addTransaction(user, transaction)
@@ -107,11 +106,9 @@ ipcMain.on('request-init-data', () => {
 ipcMain.on('export-database', (_event, args) => {
     const { newDBPath } = args[0]
     if (newDBPath) {
-        console.log('Export path set!')
         tabDB
             .exportDB(newDBPath)
-            .then(() => console.log('Exported!'))
-            .catch((err) => console.log(err))
+            .catch((err) => console.warn(err))
     }
 })
 
@@ -122,7 +119,6 @@ ipcMain.on('export-database-as-csv', async (_event, args) => {
         return
     }
 
-    console.log('Export path set!')
     const users = await tabDB.getUsersWithBalance()
 
     const writeStream = fs.createWriteStream(csvFilePath)
@@ -142,7 +138,7 @@ ipcMain.on('import-database', (_event, args) => {
         tabDB
             .importDB(newDBPath)
             .then(() => sendUserSelectorContents())
-            .catch((err) => console.log(err))
+            .catch((err) => console.warn(err))
     }
 })
 
@@ -152,7 +148,7 @@ ipcMain.on('delete-current-user', (_event, args) => {
         .deleteUser(user)
         .then(() => sendUserSelectorContents())
         .catch(() =>
-            console.log(dialog.showErrorBox('Error', `Unable to delete user ${user}`)),
+            dialog.showErrorBox('Error', `Unable to delete user ${user}`),
         )
 })
 
@@ -177,7 +173,6 @@ const sendUserdataForRendering = (username) => {
 
 const sendUserSelectorContents = (currentUser) => {
     tabDB.getUserNames().then((userList) => {
-        console.log(userList)
         mainWindow.webContents.send('populate-user-selector', [
             { userList, currentUser },
         ])

@@ -6,7 +6,6 @@ class AddUserHandler {
         let addUserWindow
 
         ipcMain.on('add-user', () => {
-            console.log('Pressed: add user')
 
             if (addUserWindow) {
                 addUserWindow.focus()
@@ -37,7 +36,6 @@ class AddUserHandler {
         })
 
         ipcMain.on('cancel-add-user', () => {
-            console.log('cancel')
             addUserWindow.close()
             addUserWindow = null
         })
