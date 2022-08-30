@@ -44,7 +44,7 @@
     "eslint-config-prottonic": "^1.3.0"
   },
   "dependencies": {
-    "date-fns": "^2.29.1",
+    "date-fns": "^2.29.2",
     "sqlite3": "^5.0.10"
   }
 }
