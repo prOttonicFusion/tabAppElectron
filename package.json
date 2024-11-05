@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "A simple bar tab desktop app",
   "scripts": {
-    "lint": "eslint -c .eslintrc --ext .js,.ts .",
+    "lint": "eslint .",
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
@@ -40,8 +40,8 @@
   "devDependencies": {
     "electron": "^33.0.2",
     "electron-builder": "^25.1.8",
-    "eslint": "^8.57.1",
-    "eslint-config-prottonic": "^1.4.0"
+    "eslint": "^9.14.0",
+    "eslint-config-prottonic": "^2.0.1"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
