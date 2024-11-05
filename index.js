@@ -20,7 +20,7 @@ const createWindow = () => {
         height: 670,
         webPreferences: {
             preload: path.join(__dirname, 'src', 'preload.js'),
-            nodeIntegration: false,
+            nodeIntegration: true,
         },
         width: 900,
         // https://github.com/electron-userland/electron-builder/issues/4617#issuecomment-623062713

@@ -142,7 +142,7 @@ const handleAbout = () => {
         width: 400,
         height: 280,
         webPreferences: {
-            nodeIntegration: false,
+            nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js'),
         },
         minimizable: false,

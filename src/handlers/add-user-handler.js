@@ -18,7 +18,7 @@ class AddUserHandler {
                 // close with the main window
                 parent: mainWindow,
                 webPreferences: {
-                    nodeIntegration: false,
+                    nodeIntegration: true,
                     preload: path.join(__dirname, '..', 'preload.js'),
                 },
                 minimizable: false,

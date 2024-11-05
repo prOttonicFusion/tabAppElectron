@@ -11,7 +11,7 @@ Download the `.AppImage` file from the latest [relase](https://github.com/prOtto
 #### Alt 2: Snap
 Download the `.snap` file from the latest [relase](https://github.com/prOttonicFusion/tabAppElectron/releases/latest) and install it using
 ```
-snap install ~/Downloads/tabapp_1.0.0_amd64.snap --dangerous
+snap install ~/Downloads/tabapp_1.0.1_amd64.snap --dangerous
 ```
 
 ## Development
